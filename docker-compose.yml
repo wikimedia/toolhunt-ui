@@ -9,5 +9,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/app
+      - /app/node_modules # do not bind mount node_modules
     ports:
       - '8082:8080'
