@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+
+  toolhunt:
+    container_name: toolhunt
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - '8082:8080'
