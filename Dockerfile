@@ -1,6 +1,6 @@
 # base image
-# Vite did not like the older version of Node that we'd specified, so I switched to the most recent version
-FROM node:alpine
+# Vite did not like the older version of Node that we'd specified, so I switched to the most recent version (version # specified)
+FROM node:19-alpine
 
 
 # set working directory
@@ -12,6 +12,8 @@ RUN npm install
 
 # Without this line the page will not load
 COPY . . 
+
+EXPOSE 8082
 
 # Without this section, I was getting continual errors
 # when running docker-compose.
