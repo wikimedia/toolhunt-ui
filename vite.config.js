@@ -16,6 +16,9 @@ export default defineConfig({
       usePolling: true, // needed for hot reloads
     },
     host: true, // needed for the Docker Container port mapping to work
+    hmr: {
+      clientPort: 8082,
+    },
     strictPort: true,
     port: 8082, // needs to be specified
   },
