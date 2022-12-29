@@ -13,9 +13,6 @@ RUN chown -R node: /app
 COPY package.json /app/package.json
 RUN npm install
 
-# Without this line the page will not load
-COPY . . 
-
 EXPOSE 8082
 
 USER node
