@@ -6,6 +6,9 @@ FROM node:hydrogen-alpine
 # set working directory
 WORKDIR /app
 
+# give node user READ privilege in the app directory
+RUN chown -R node: /app
+
 # install and cache app dependencies
 COPY package.json /app/package.json
 RUN npm install
@@ -14,12 +17,6 @@ RUN npm install
 COPY . . 
 
 EXPOSE 8082
-
-# Without this section, I was getting continual errors
-# when running docker-compose.
-# I found the solution here: https://www.reddit.com/r/docker/comments/ww6rt5/eacces_permission_denied/
-RUN mkdir /app/node_modules/.vite \
-    && chown -R node:node /app/node_modules/.vite
 
 USER node
 
