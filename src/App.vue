@@ -20,6 +20,7 @@ import HelloWorld from "./components/HelloWorld.vue";
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
         <v-btn>Test</v-btn>
+        <v-icon icon="mdi-home"></v-icon>
       </nav>
     </div>
   </header>
