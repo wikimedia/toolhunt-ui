@@ -6,6 +6,7 @@ import router from "./router";
 
 import "./assets/main.css";
 
+import "vuetify/styles";
 import { createVuetify } from "vuetify";
 
 const app = createApp(App);
