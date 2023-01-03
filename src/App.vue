@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import HelloWorld from "./components/HelloWorld.vue";
 </script>
 
 <template>
@@ -9,20 +8,15 @@ import HelloWorld from "./components/HelloWorld.vue";
       alt="Vue logo"
       class="logo"
       src="@/assets/logo.svg"
-      width="125"
-      height="125"
+      width="25"
+      height="25"
     />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
       <nav>
         <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-        <v-btn>Test</v-btn>
-        <v-icon icon="mdi-home"></v-icon>
+        <RouterLink to="/dashboard">Dashboard</RouterLink>
+        <RouterLink to="/leaderboard">Leaderboard</RouterLink>
+        <v-btn><v-icon icon="mdi-account-circle"/></v-btn>
       </nav>
-    </div>
   </header>
 
   <RouterView />
