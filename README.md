@@ -7,8 +7,15 @@ Frontend Repository for Toolhunt. Toolhunt is a web application for editing Tool
 * Clone this repo to your machine
 * `git clone https://github.com/wikimedia/toolhunt-ui.git` 
 * `cd into toolhunt-ui`
+* `docker-compose up -d`
+*On the browser open `http://localhost:8082/`
 ## Languages and Tools
 * Vue.js
 * HTML
 * CSS
+* Docker
+* Vuetify
+* Pinia
+* Vite
+* Vitest
 
