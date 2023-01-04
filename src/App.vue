@@ -5,21 +5,22 @@ import Footer from "./components/Footer.vue"
 
 <template>
   <v-app>
-    <header>
+    <v-toolbar color="#006699">
       <img
         alt="Toolhunt logo"
         class="logo"
         src="@/assets/logo-nav.svg"
-        width="25"
-        height="25"
+        width="35"
+        height="35"
       />
+      <v-toolbar-title class="text-h4">Toolhunt</v-toolbar-title>
         <nav>
           <RouterLink to="/">Home</RouterLink>
           <RouterLink to="/dashboard">Dashboard</RouterLink>
           <RouterLink to="/leaderboard">Leaderboard</RouterLink>
-          <v-btn><v-icon icon="mdi-account-circle"/></v-btn>
+          <v-btn icon="mdi-account-circle"></v-btn>
         </nav>
-    </header>
+    </v-toolbar>
     <v-main>
       <v-container fluid>
         <RouterView />
