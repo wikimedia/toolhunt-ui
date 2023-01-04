@@ -10,7 +10,9 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
+    "@mdi/font": "^7.1.96",
     "pinia": "^2.0.28",
+    "vite-plugin-vuetify": "^1.0.1",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"
   },
