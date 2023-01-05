@@ -3,7 +3,7 @@ import { RouterLink, RouterView } from "vue-router";
 export default {
 <template>
   <header>
-    <div class="left-side">
+    <RouterLink to="/" class="left-side">
       <img
         alt="Toolhunt logo"
         class="logo"
@@ -12,7 +12,7 @@ export default {
         height="35"
       />
       <p class="text-h4">Toolhunt</p>
-    </div>
+    </RouterLink>
     <nav class="desktop-nav" aria-label="desktop">
       <v-btn to="/" flat>Home</v-btn>
       <v-btn to="/dashboard" flat>Dashboard</v-btn>
@@ -53,11 +53,10 @@ export default {
 
   .left-side {
     display: flex;
+    align-items: center;
     gap: 10px;
     color: white;
-  }
-  .left-side > img {
-    margin-top: 2px;
+    text-decoration: none;
   }
 
   .desktop-nav {
