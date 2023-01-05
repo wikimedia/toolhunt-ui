@@ -7,7 +7,10 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      meta: {
+        title: "Home | Toolhunt"
+      }
     },
     {
       path: '/dashboard',
@@ -15,14 +18,26 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/DashboardView.vue')
+      component: () => import('../views/DashboardView.vue'),
+      meta: {
+        title: "Dashboard | Toolhunt"
+      }
     },
     {
       path: '/leaderboard',
       name: 'leaderboard',
-      component: () => import('../views/LeaderboardView.vue')
+      component: () => import('../views/LeaderboardView.vue'),
+      meta: {
+        title: "Leaderboard | Toolhunt"
+      }
     }
-  ]
+  ],
 })
+
+router.beforeEach((to) => {
+  if (to.meta.title) {
+    document.title = to.meta.title;
+  }
+});
 
 export default router
