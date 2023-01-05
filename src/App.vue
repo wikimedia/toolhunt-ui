@@ -29,3 +29,7 @@ import Footer from "./components/Footer.vue"
     <Footer />
   </v-app>
 </template>
+
+<style scoped>
+
+</style>
