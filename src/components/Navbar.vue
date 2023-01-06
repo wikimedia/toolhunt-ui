@@ -94,7 +94,7 @@ export default {
     border-radius: 0 !important;
   }
 
-  img {
+  header > .left-side img {
     margin-inline-start: 10px;
   }
 
