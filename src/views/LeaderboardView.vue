@@ -2,48 +2,113 @@
 import { ref } from "vue";
 const profileBaseUrl = ref("https://meta.wikimedia.org/wiki/User:");
 
-const users = ref([
-  { userName: "BDavis (WMF)", toolsEdited: 32 },
-  { userName: "Sage (Wiki Ed)", toolsEdited: 22 },
+const last30DaysTopContributions = ref([
+  { userName: "BDavis (WMF)", toolsEdited: 32},
+  { userName: "Sage (Wiki Ed)", toolsEdited: 22},
   { userName: "Demo Unicorn", toolsEdited: 20 },
-  { userName: "NicoleLBee", toolsEdited: 17 },
-  { userName: "Hannah Waruguru", toolsEdited: 12 },
+  { userName: "NicoleLBee", toolsEdited: 17},
+  { userName: "Hannah Waruguru", toolsEdited: 12},
 ]);
+
+const allTimeTopContributions = ref([
+  { userName: "Gaurav Jhammat", toolsEdited: 86 },
+  { userName: "Benni Prüfer",  toolsEdited: 70  },
+  { userName: "FNegri-WMF",  toolsEdited: 50  },
+  { userName: "NicoleLBee", toolsEdited:  40 },
+  { userName: "Hannah Waruguru",  toolsEdited: 20  },
+]);
+
 </script>
 
 <template>
   <v-container>
+    <v-row>
+      <v-col cols="1" class="d-flex justify-center align-center pr-1">
+        <v-img src="./src/assets/logo-main.svg" height="100" width="100"></v-img>
+      </v-col>
+      <v-col cols="10" class="d-flex justify-center align-start flex-column pl-1">
+        <div class="text-h4">Toolhunt Leaderboard</div>
+        <div class="text-subtitle-2">
+          Recognizing the users who have hunted down the most references, this
+          month and for all time.
+        </div>
+        <div class="text-subtitle-2">Thank you for your contributions!</div>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col cols="12">
         <v-table class="table elevation-2">
           <template v-slot:default>
             <thead>
               <tr>
-                <th class="text-center text-h3" colspan="2">Leaderboard</th>
+                <th class="text-left text-h5 mx-1 my-3" colspan="2">
+                    Top Hunters from the Last 30 Days
+                </th>
               </tr>
               <tr>
-                <th class="text-left text-h5">User's Name</th>
-                <th class="text-center text-h5">Number of Tools Edited</th>
+                <th class="text-left text-subtitle-2 font-weight-bold">
+                  User's Name
+                </th>
+                <th class="text-center text-subtitle-2 font-weight-bold">
+                  Number of Tools Edited
+                </th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(user) in users" :key="user.userName">
+              <tr v-for="contribution in last30DaysTopContributions" :key="contribution.userName">
                 <td class="text-left">
                   <a
-                    :href="`${profileBaseUrl}${user.userName
+                    :href="`${profileBaseUrl}${contribution.userName
                       .split(' ')
                       .join('_')}`"
-                    >{{ user.userName }}</a
+                    >{{ contribution.userName }}</a
                   >
                 </td>
 
-                <td class="text-center">{{ user.toolsEdited }}</td>
+                <td class="text-center">{{ contribution.toolsEdited }}</td>
               </tr>
             </tbody>
           </template>
         </v-table>
       </v-col>
     </v-row>
+    <v-row>
+        <v-col cols="12">
+          <v-table class="table elevation-2">
+            <template v-slot:default>
+              <thead>
+                <tr>
+                  <th class="text-left text-h5 mx-1 my-3" colspan="2">
+                      All Time Greats
+                  </th>
+                </tr>
+                <tr>
+                  <th class="text-left text-subtitle-2 font-weight-bold">
+                    User's Name
+                  </th>
+                  <th class="text-center text-subtitle-2 font-weight-bold">
+                    Number of Tools Edited
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="contribution in allTimeTopContributions" :key="contribution.userName">
+                  <td class="text-left">
+                    <a
+                      :href="`${profileBaseUrl}${contribution.userName
+                        .split(' ')
+                        .join('_')}`"
+                      >{{ contribution.userName }}</a
+                    >
+                  </td>
+  
+                  <td class="text-center">{{ contribution.toolsEdited}}</td>
+                </tr>
+              </tbody>
+            </template>
+          </v-table>
+        </v-col>
+      </v-row>
   </v-container>
 </template>
 
