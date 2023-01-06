@@ -81,13 +81,13 @@ export default {
     position: absolute;
     top: 64px;
     right: 0;
-    transform: translateX(200px);
-    transition: 0.2s;
+    transform: translateX(200px) scale(0);
+    transition: 0.3s;
   }
 
   .mobile-nav-display {
-    transform: translateX(0);
-    transition: 0.2s;
+    transform: translateX(0) scale(1);
+    transition: 0.3s;
   }
 
   .mobile-nav * {
