@@ -13,12 +13,12 @@
       <v-container>
         <v-row>
           <v-col>
-            <v-card cols="12" min-width="350">
+            <v-card cols="12" min-width="300">
               <v-card-item>
                 <v-card-title>My Contributions</v-card-title>
               </v-card-item>
               <v-card-text>
-                <v-table>
+                <v-table  class="contribution-table">
                   <tbody>
                     <tr>
                       <td>10/19/2022</td>
@@ -96,12 +96,12 @@
             </v-card>
           </v-col>
           <v-col>
-            <v-card cols="12" min-width="350">
+            <v-card cols="12" min-width="300">
               <v-card-item>
                 <v-card-title>Latest Activity</v-card-title>
               </v-card-item>
               <v-card-text>
-                <v-table>
+                <v-table class="contribution-table">
                   <tbody>
                     <tr>
                       <td>10/19/2022</td>
@@ -162,6 +162,11 @@ export default {
   width: 75px;
 }
 
+.contribution-table tr > td:first-of-type {
+    display: none;
+  }
+
+
 @media (min-width: 600px) {
   .dashboard-header p {
     display: block;
@@ -171,5 +176,10 @@ export default {
     height: 100px;
     width: 100px;
   }
+
+  .contribution-table tr > td:first-of-type {
+    display: table-cell;
+  }
+
 }
 </style>
