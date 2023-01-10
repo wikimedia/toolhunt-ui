@@ -1,19 +1,19 @@
 <template>
   <v-container class="dashboard-header" fluid>
-        <img src="src/assets/logo-main.svg" height="100" width="100" alt=""/>
-        <div>
-          <h1>Welcome back, {{ username }}!</h1>
-          <p>
-            Here on the Dashboard, you can view your latest contributions and check out global contributions and statistics about Toolhub and the Toolhunt project.
-          </p>
-        </div>
+          <img src="src/assets/logo-main.svg" alt=""/>
+          <div>
+            <h1>Welcome, {{ username }}!</h1>
+            <p>
+              Here on the Dashboard, you can view your latest contributions and check out global contributions and statistics about Toolhub and the Toolhunt project.
+            </p>
+          </div>
   </v-container>
 
     <v-card flat max-width="1400" class="mx-auto">
       <v-container>
         <v-row>
           <v-col>
-            <v-card cols="12" min-width="400">
+            <v-card cols="12" min-width="350">
               <v-card-item>
                 <v-card-title>My Contributions</v-card-title>
               </v-card-item>
@@ -96,7 +96,7 @@
             </v-card>
           </v-col>
           <v-col>
-            <v-card cols="12" min-width="400">
+            <v-card cols="12" min-width="350">
               <v-card-item>
                 <v-card-title>Latest Activity</v-card-title>
               </v-card-item>
@@ -158,8 +158,8 @@ export default {
 }
 
 .dashboard-header img {
-  height: 50px;
-  width: 50px;
+  height: 75px;
+  width: 75px;
 }
 
 @media (min-width: 600px) {
