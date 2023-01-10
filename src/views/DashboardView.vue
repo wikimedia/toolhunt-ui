@@ -9,30 +9,89 @@
           </div>
   </v-container>
 
-    <v-card flat max-width="1400" class="mx-auto">
-      <v-container>
-        <v-row>
-          <DashboardCard v-for="card in cards" :key="card.title" :cardContent="card" />
+  <v-card flat max-width="1400" class="mx-auto">
+    <v-container>
+      <v-row>
+        <ContributionTable :content="userContributions" :global=false>
+          My Contributions
+        </ContributionTable>
+        <v-col>
+          <v-card cols="6" min-width="300">
+            <v-card-item>
+              <v-card-title>Contribution Stats</v-card-title>
+            </v-card-item>
+            <v-card-text>
+              <v-table>
+                <tbody>
+                  <tr>
+                    <td>My contributions in the last 30 days:</td>
+                    <td>{{userStats.contributionsLast30Days}}</td>
+                </tr>
+                <tr>
+                    <td>My total contributions:</td>
+                    <td>{{userStats.contributionsTotal}}</td>
+                </tr>
+                <tr>
+                    <td>Global contributions in the last 30 days:</td>
+                    <td>{{globalStats.contributionsLast30Days}}</td>
+                </tr>
+                <tr>
+                    <td>Total contributions:</td>
+                    <td>{{globalStats.contributionsTotal}}</td>
+                </tr>
+                </tbody>
+              </v-table>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <v-col>
+          <v-card cols="6" min-width="300">
+            <v-card-item>
+              <v-card-title>Toolhub at a Glance</v-card-title>
+            </v-card-item>
+            <v-card-text>
+              <v-table>
+                <tbody>
+                  <tr>
+                    <td>Number of tools on record:</td>
+                    <td>{{globalStats.totalTools}}</td>
+                </tr>
+                <tr>
+                    <td>Number of tools with missing data:</td>
+                    <td>{{globalStats.toolsMissingInfo}}</td>
+                </tr>
+                <tr>
+                    <td>Percentage of tools with missing data:</td>
+                    <td>{{calcPercentMissing(globalStats.toolsMissingInfo, globalStats.totalTools)}}%</td>
+                </tr>
+                </tbody>
+              </v-table>
+            </v-card-text>
+          </v-card>
+        </v-col>
+        <ContributionTable :content="globalContributions" :global=true>
+          Latest Activity
+        </ContributionTable>
       </v-row>
-      </v-container>
-    </v-card>
+    </v-container>
+  </v-card>
 </template>
 
 <script>
-import DashboardCard from "../components/DashboardCard.vue"
+import ContributionTable from "../components/ContributionTable.vue"
 export default {
   components: {
-    DashboardCard
+    ContributionTable
+  },
+  methods: {
+    calcPercentMissing(numberMissing, numberTotal) {
+      return ((numberMissing/numberTotal) * 100).toFixed(2)
+    }
   },
   data() {
     return {
       userName: "NicoleLBee",
-      cards: [
-        {
-          title: "My Contributions",
-          contributionTable: true,
-          global: false,
-          content: [ 
+      userContributions: [ 
           {
             user: "NicoleLBee",
             toolName: "pywikibot",
@@ -60,13 +119,9 @@ export default {
             toolTitle: "Pywikibot",
             fieldEdited: "icon",
             dateModified: 1651447200000,
-          }] 
-        },
-        {
-          title: "Latest Activity",
-          contributionTable: true,
-          global: true,
-          content: [
+          }],
+
+        globalContributions: [
           {
             user: "DannyBoyyy77",
             toolName: "xtools-ec",
@@ -101,14 +156,18 @@ export default {
             toolTitle: "Pywikibot",
             fieldEdited: "tool_type",
             dateModified: 1666304737862,
-          }]
+          }
+        ],
+        globalStats: {
+          totalTools: 2702,
+          toolsMissingInfo: 2701,
+          contributionsLast30Days: 73,
+          contributionsTotal: 226
         },
-        {
-          title: "My Contributions",
-          contributionTable: false,
-          
+        userStats: {
+          contributionsLast30Days: 4,
+          contributionsTotal: 10
         }
-      ]
     }
   }
 }
