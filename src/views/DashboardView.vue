@@ -2,7 +2,7 @@
   <v-container class="dashboard-header" fluid>
           <img src="src/assets/logo-main.svg" alt=""/>
           <div>
-            <h1>Welcome, {{ username }}!</h1>
+            <h1>Welcome, {{ userName }}!</h1>
             <p>
               Here on the Dashboard, you can view your latest contributions and check out global contributions and statistics about Toolhub and the Toolhunt project.
             </p>
@@ -12,133 +12,103 @@
     <v-card flat max-width="1400" class="mx-auto">
       <v-container>
         <v-row>
-          <v-col>
-            <v-card cols="12" min-width="300">
-              <v-card-item>
-                <v-card-title>My Contributions</v-card-title>
-              </v-card-item>
-              <v-card-text>
-                <v-table  class="contribution-table">
-                  <tbody>
-                    <tr>
-                      <td>10/19/2022</td>
-                      <td>Added available_ui_languages to Pywikibot</td>
-                  </tr>
-                  <tr>
-                      <td>7/19/2022</td>
-                      <td>Added for_wikis to Wikidata Todo</td>
-                  </tr>
-                  <tr>
-                      <td>6/17/2022</td>
-                      <td>Added repository to Find duplicate items</td>
-                  </tr>
-                  <tr>
-                      <td>5/2/2022</td>
-                      <td>Added icon to Pywikibot</td>
-                  </tr>
-                  </tbody>
-                </v-table>
-              </v-card-text>
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card cols="6" min-width="300">
-              <v-card-item>
-                <v-card-title>Contribution Stats</v-card-title>
-              </v-card-item>
-              <v-card-text>
-                <v-table>
-                  <tbody>
-                    <tr>
-                      <td>My contributions in the last 30 days:</td>
-                      <td>1</td>
-                  </tr>
-                  <tr>
-                      <td>My total contributions:</td>
-                      <td>4</td>
-                  </tr>
-                  <tr>
-                      <td>Global contributions in the last 30 days:</td>
-                      <td>73</td>
-                  </tr>
-                  <tr>
-                      <td>Total contributions:</td>
-                      <td>226</td>
-                  </tr>
-                  </tbody>
-                </v-table>
-              </v-card-text>
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card cols="6" min-width="300">
-              <v-card-item>
-                <v-card-title>Toolhub at a Glance</v-card-title>
-              </v-card-item>
-              <v-card-text>
-                <v-table>
-                  <tbody>
-                    <tr>
-                      <td>Number of tools on record:</td>
-                      <td>2701</td>
-                  </tr>
-                  <tr>
-                      <td>Number of tools with missing data:</td>
-                      <td>2700</td>
-                  </tr>
-                  <tr>
-                      <td>Percentage of tools with missing data:</td>
-                      <td>99.96%</td>
-                  </tr>
-                  </tbody>
-                </v-table>
-              </v-card-text>
-            </v-card>
-          </v-col>
-          <v-col>
-            <v-card cols="12" min-width="300">
-              <v-card-item>
-                <v-card-title>Latest Activity</v-card-title>
-              </v-card-item>
-              <v-card-text>
-                <v-table class="contribution-table">
-                  <tbody>
-                    <tr>
-                      <td>10/19/2022</td>
-                      <td>User</td>
-                      <td>Added available_ui_languages to Pywikibot</td>
-                  </tr>
-                  <tr>
-                      <td>7/19/2022</td>
-                      <td>User</td>
-                      <td>Added for_wikis to Wikidata Todo</td>
-                  </tr>
-                  <tr>
-                      <td>6/17/2022</td>
-                      <td>User</td>
-                      <td>Added repository to Find duplicate items</td>
-                  </tr>
-                  <tr>
-                      <td>5/2/2022</td>
-                      <td>User</td>
-                      <td>Added icon to Pywikibot</td>
-                  </tr>
-                  </tbody>
-                </v-table>
-              </v-card-text>
-            </v-card>
-          </v-col>
+          <DashboardCard v-for="card in cards" :key="card.title" :cardContent="card" />
       </v-row>
       </v-container>
     </v-card>
 </template>
 
 <script>
+import DashboardCard from "../components/DashboardCard.vue"
 export default {
+  components: {
+    DashboardCard
+  },
   data() {
     return {
-      username: "NicoleLBee",
-      toolCount: 2450
+      userName: "NicoleLBee",
+      cards: [
+        {
+          title: "My Contributions",
+          contributionTable: true,
+          global: false,
+          content: [ 
+          {
+            user: "NicoleLBee",
+            toolName: "pywikibot",
+            toolTitle: "Pywikibot",
+            fieldEdited: "available_ui_languages",
+            dateModified: 1666214747862,
+          },
+          {
+            user: "NicoleLBee",
+            toolName: "mm_wikidata_todo",
+            toolTitle: "Wikidata Todo",
+            fieldEdited: "for_wikis",
+            dateModified: 1658227200000,
+          },
+          {
+            user: "NicoleLBee",
+            toolName: "mm_find_duplicate_items",
+            toolTitle: "Find duplicate items",
+            fieldEdited: "repository",
+            dateModified: 1655449600000,
+          },
+          {
+            user: "NicoleLBee",
+            toolName: "pywikibot",
+            toolTitle: "Pywikibot",
+            fieldEdited: "icon",
+            dateModified: 1651447200000,
+          }] 
+        },
+        {
+          title: "Latest Activity",
+          contributionTable: true,
+          global: true,
+          content: [
+          {
+            user: "DannyBoyyy77",
+            toolName: "xtools-ec",
+            toolTitle: "XTools Edit Counter",
+            fieldEdited: "icon",
+            dateModified: 1666514747862,
+          },
+          {
+            user: "Ellenello",
+            toolName: "metawiki-jon-harald-søby-diffedit",
+            toolTitle: "diffedit",
+            fieldEdited: "repository",
+            dateModified: 1666505047862,
+          },
+          {
+            user: "DannyBoyyy77",
+            toolName: "xtools-ec",
+            toolTitle: "XTools Edit Counter",
+            fieldEdited: "privacy_policy_url",
+            dateModified: 1666500047862,
+          },
+          {
+            user: "Javier Alejandro Herrera Carvajal",
+            toolName: "toolforge-croptool",
+            toolTitle: "CropTool",
+            fieldEdited: "available_ui_languages",
+            dateModified: 1666410745862,
+          },
+          {
+            user: "Tabby578",
+            toolName: "pywikibot",
+            toolTitle: "Pywikibot",
+            fieldEdited: "tool_type",
+            dateModified: 1666304737862,
+          }]
+        },
+        {
+          title: "My Contributions",
+          contributionTable: false,
+          
+        }
+      ]
     }
   }
 }
@@ -162,7 +132,7 @@ export default {
   width: 75px;
 }
 
-.contribution-table tr > td:first-of-type {
+.contributionTable tr > td:first-of-type {
     display: none;
   }
 
@@ -177,7 +147,7 @@ export default {
     width: 100px;
   }
 
-  .contribution-table tr > td:first-of-type {
+  .contributionTable tr > td:first-of-type {
     display: table-cell;
   }
 
