@@ -8,7 +8,7 @@
         <v-table  class="contributionTable">
           <tbody>
             <tr v-for="contribution in content" :key="contribution.dateModified">
-              <td>{{ convertUTCtoDate(contribution.dateModified) }}</td>
+              <td>{{ convertUTCtoLocaleDateString(contribution.dateModified) }}</td>
               <td v-if="this.global">
                 <a :href=generateProfileURL(contribution.user) target="_blank">{{ contribution.user }}</a></td>
               <td>Added {{ contribution.fieldEdited }} to <a :href=generateToolURL(contribution.toolName) target="_blank">{{ contribution.toolTitle }}</a></td>
@@ -27,11 +27,8 @@ export default {
     global: Boolean,
   },
   methods: {
-    convertUTCtoDate(dateString) {
+    convertUTCtoLocaleDateString(dateString) {
       let dateObj = new Date(dateString);
-      return this.convertDateObjToString(dateObj);
-    },
-    convertDateObjToString(dateObj) {
       return dateObj.toLocaleDateString();
     },
     generateProfileURL(user) {
