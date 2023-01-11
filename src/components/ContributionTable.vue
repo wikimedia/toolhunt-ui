@@ -7,11 +7,10 @@
       <v-card-text>
         <v-table  class="contributionTable">
           <tbody>
-            <tr v-for="contribution in content" :key="contribution.dateModified">
-              <td>{{ convertUTCtoLocaleDateString(contribution.dateModified) }}</td>
-              <td v-if="this.global">
-                <a :href=generateProfileURL(contribution.user) target="_blank">{{ contribution.user }}</a></td>
-              <td>Added {{ contribution.fieldEdited }} to <a :href=generateToolURL(contribution.toolName) target="_blank">{{ contribution.toolTitle }}</a></td>
+            <tr v-for="contribution in contributionContent" :key="contribution.dateModified">
+              <DateString :dateString="contribution.dateModified" />
+              <UserProfile v-if="this.global" :user="contribution.user" />
+              <ToolData :toolName="contribution.toolName" :toolTitle="contribution.toolTitle" :fieldEdited="contribution.fieldEdited" />
           </tr>
           </tbody>
         </v-table>
@@ -21,23 +20,23 @@
 </template>
 
 <script>
+import DateString from "./table_data/DateString.vue";
+import ToolData from "./table_data/ToolData.vue";
+import UserProfile from "./table_data/UserProfile.vue";
+
 export default {
+  components: {
+    DateString,
+    ToolData,
+    UserProfile
+  },
   props: {
     content: Array,
     global: Boolean,
   },
-  methods: {
-    convertUTCtoLocaleDateString(dateString) {
-      let dateObj = new Date(dateString);
-      return dateObj.toLocaleDateString();
-    },
-    generateProfileURL(user) {
-      const baseURL = "https://en.wikipedia.org/wiki/User:";
-      let userName = user.split(" ").join("_")
-      return `${baseURL}${userName}`
-    },
-    generateToolURL(toolName) {
-      return `https://toolhub.wikimedia.org/tools/${toolName}`
+  data() {
+    return {
+      contributionContent: this.content
     }
   }
 }
