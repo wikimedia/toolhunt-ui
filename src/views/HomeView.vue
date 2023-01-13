@@ -126,7 +126,7 @@ const tasks = ref({
           <v-card-action
             class="d-flex justify-center justify-space-around flex-row"
           >
-            <v-btn class="bg-primary">Yes Please</v-btn>
+            <v-btn color="primary base100--text theme--light">Yes Please</v-btn>
             <v-btn>Skip to Next</v-btn>
           </v-card-action>
         </v-card>
