@@ -1,7 +1,6 @@
 import "vuetify/styles";
 import { createVuetify } from "vuetify";
 import '@mdi/font/css/materialdesignicons.css';
-// Vue.use( Vuetify );
 
 const customLightTheme = {
   dark: false,
@@ -35,7 +34,8 @@ const customLightTheme = {
     logogreen: '#396',
     logored: '#900'
   },
-}
+};
+
 export default createVuetify({
   theme: {
     defaultTheme: 'customLightTheme',
@@ -44,6 +44,5 @@ export default createVuetify({
     }
   }
 });
-
 
 
