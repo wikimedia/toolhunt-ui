@@ -64,17 +64,6 @@ const tasks = ref({
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-        ></v-text-field>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
         <v-card>
           <v-card-item>
             <v-card-title>Help us add missing fields</v-card-title>
@@ -126,8 +115,8 @@ const tasks = ref({
           <v-card-action
             class="d-flex justify-center justify-space-around flex-row"
           >
-            <v-btn color="primary base100--text theme--light">Yes Please</v-btn>
-            <v-btn>Skip to Next</v-btn>
+            <v-btn class="my-2" color="primary base100--text theme--light">Yes Please</v-btn>
+            <v-btn class="my-2" >Skip to Next</v-btn>
           </v-card-action>
         </v-card>
       </v-col>
