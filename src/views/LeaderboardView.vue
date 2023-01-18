@@ -20,59 +20,29 @@ const allTimeTopContributions = ref([
 </script>
 
 <template>
-  <v-container>
-
- <!-- display for tablet and above -->
- <v-row class="hidden-xs">
-  <v-col cols="2" class="d-flex justify-start align-center">
+  <v-container
+    class="d-flex align-center"
+    style="gap: 16px; max-width: 800px; margin-inline: auto"
+    fluid
+  >
     <v-img
       src="./src/assets/logo-main.svg"
-      height="100"
-      width="100"
+      height="75"
+      width="75"
       class="overflow-visible"
     ></v-img>
-  </v-col>
-  <v-col
-  cols="10"
-  class="d-flex justify-center align-start flex-column pl-1"
->
-<div class="text-h4">Toolhunt Leaderboard</div>
-<div class="text-subtitle-2">
-  Recognizing the users who have hunted down the most references, this
-  month and for all time.
-</div>
-<div class="text-subtitle-2">Thank you for your contributions!</div>
-</v-col>
-    </v-row>
-
-    <!-- display for mobile only -->
-    <v-row class="hidden-sm-and-up">
-      <v-col cols="2" class="d-flex justify-start align-center pl-1">
-        <v-img
-          src="./src/assets/logo-main.svg"
-          class="overflow-visible"
-        ></v-img>
-      </v-col>
-      <v-col
-        cols="6"
-        class="d-flex justify-center align-start flex-column pl-1"
-      >
-        <div class="text-h4">Toolhunt</div>
-      </v-col>
-    </v-row>
-    <v-row class="hidden-sm-and-up">
-          <v-col
-          cols="10"
-          class="d-flex justify-center align-start flex-column pl-1"
-        >
-        <div class="text-h4">Toolhunt Leaderboard</div>
-        <div class="text-subtitle-2">
-          Recognizing the users who have hunted down the most references, this
-          month and for all time.
-        </div>
-        <div class="text-subtitle-2">Thank you for your contributions!</div>
-        </v-col>
-            </v-row>
+    <div>
+      <p class="text-h4">Toolhunt Leaderboard</p>
+      <p class="text-subtitle-2 d-none d-sm-block">
+        Recognizing the users who have hunted down the most references, this
+        month and for all time.
+      </p>
+      <p class="text-subtitle-2 d-none d-sm-block">
+        Thank you for your contributions!
+      </p>
+    </div>
+  </v-container>
+  <v-container>
     <v-row>
       <v-col cols="12">
         <v-table class="table elevation-2">
