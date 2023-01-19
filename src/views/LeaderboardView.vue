@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from "vue";
+import LeaderboardTable from "../components/LeaderboardTable.vue"
 const profileBaseUrl = ref("https://meta.wikimedia.org/wiki/User:");
+
 
 const last30DaysTopContributions = ref([
   { userName: "BDavis (WMF)", toolsEdited: 32 },
@@ -20,139 +22,37 @@ const allTimeTopContributions = ref([
 </script>
 
 <template>
-  <v-container>
-
- <!-- display for tablet and above -->
- <v-row class="hidden-xs">
-  <v-col cols="2" class="d-flex justify-start align-center">
+  <v-container
+    class="d-flex align-center"
+    style="gap: 16px; max-width: 800px; margin-inline: auto"
+    fluid
+  >
     <v-img
       src="./src/assets/logo-main.svg"
-      height="100"
-      width="100"
+      height="75"
+      width="75"
       class="overflow-visible"
     ></v-img>
-  </v-col>
-  <v-col
-  cols="10"
-  class="d-flex justify-center align-start flex-column pl-1"
->
-<div class="text-h4">Toolhunt Leaderboard</div>
-<div class="text-subtitle-2">
-  Recognizing the users who have hunted down the most references, this
-  month and for all time.
-</div>
-<div class="text-subtitle-2">Thank you for your contributions!</div>
-</v-col>
-    </v-row>
-
-    <!-- display for mobile only -->
-    <v-row class="hidden-sm-and-up">
-      <v-col cols="2" class="d-flex justify-start align-center pl-1">
-        <v-img
-          src="./src/assets/logo-main.svg"
-          class="overflow-visible"
-        ></v-img>
-      </v-col>
-      <v-col
-        cols="6"
-        class="d-flex justify-center align-start flex-column pl-1"
-      >
-        <div class="text-h4">Toolhunt</div>
-      </v-col>
-    </v-row>
-    <v-row class="hidden-sm-and-up">
-          <v-col
-          cols="10"
-          class="d-flex justify-center align-start flex-column pl-1"
-        >
-        <div class="text-h4">Toolhunt Leaderboard</div>
-        <div class="text-subtitle-2">
-          Recognizing the users who have hunted down the most references, this
-          month and for all time.
-        </div>
-        <div class="text-subtitle-2">Thank you for your contributions!</div>
-        </v-col>
-            </v-row>
+    <div>
+      <p class="text-h4">Toolhunt Leaderboard</p>
+      <p class="text-subtitle-2 d-none d-sm-block">
+        Recognizing the users who have hunted down the most references, this
+        month and for all time.
+      </p>
+      <p class="text-subtitle-2 d-none d-sm-block">
+        Thank you for your contributions!
+      </p>
+    </div>
+  </v-container>
+  <v-container>
     <v-row>
       <v-col cols="12">
-        <v-table class="table elevation-2">
-          <template v-slot:default>
-            <thead>
-              <tr>
-                <th class="text-left text-h5 mx-1 my-3" colspan="2">
-                  Top Hunters from the Last 30 Days
-                </th>
-              </tr>
-              <tr>
-                <th class="text-left text-subtitle-2 font-weight-bold">
-                  User's Name
-                </th>
-                <th class="text-center text-subtitle-2 font-weight-bold">
-                  Number of Tools Edited
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="contribution in last30DaysTopContributions"
-                :key="contribution.userName"
-              >
-                <td class="text-left">
-                  <a
-                    :href="`${profileBaseUrl}${contribution.userName
-                      .split(' ')
-                      .join('_')}`"
-                    target="_blank"
-                    >{{ contribution.userName }}</a
-                  >
-                </td>
-
-                <td class="text-center">{{ contribution.toolsEdited }}</td>
-              </tr>
-            </tbody>
-          </template>
-        </v-table>
+        <LeaderboardTable :contributions="last30DaysTopContributions" :title="'Top Hunters from the Last 30 Days'" :profileBaseUrl="profileBaseUrl" />
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-table class="table elevation-2">
-          <template v-slot:default>
-            <thead>
-              <tr>
-                <th class="text-left text-h5 mx-1 my-3" colspan="2">
-                  All Time Greats
-                </th>
-              </tr>
-              <tr>
-                <th class="text-left text-subtitle-2 font-weight-bold">
-                  User's Name
-                </th>
-                <th class="text-center text-subtitle-2 font-weight-bold">
-                  Number of Tools Edited
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="contribution in allTimeTopContributions"
-                :key="contribution.userName"
-              >
-                <td class="text-left">
-                  <a
-                    :href="`${profileBaseUrl}${contribution.userName
-                      .split(' ')
-                      .join('_')}`"
-                    target="_blank"
-                    >{{ contribution.userName }}</a
-                  >
-                </td>
-
-                <td class="text-center">{{ contribution.toolsEdited }}</td>
-              </tr>
-            </tbody>
-          </template>
-        </v-table>
+        <LeaderboardTable :contributions="allTimeTopContributions" :title="'All Time Greats'" :profileBaseUrl="profileBaseUrl" />
       </v-col>
     </v-row>
   </v-container>
