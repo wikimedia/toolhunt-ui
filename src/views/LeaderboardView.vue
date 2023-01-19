@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from "vue";
+import LeaderboardTable from "../components/LeaderboardTable.vue"
 const profileBaseUrl = ref("https://meta.wikimedia.org/wiki/User:");
+
 
 const last30DaysTopContributions = ref([
   { userName: "BDavis (WMF)", toolsEdited: 32 },
@@ -45,84 +47,12 @@ const allTimeTopContributions = ref([
   <v-container>
     <v-row>
       <v-col cols="12">
-        <v-table class="table elevation-2">
-          <template v-slot:default>
-            <thead>
-              <tr>
-                <th class="text-left text-h5 mx-1 my-3" colspan="2">
-                  Top Hunters from the Last 30 Days
-                </th>
-              </tr>
-              <tr>
-                <th class="text-left text-subtitle-2 font-weight-bold">
-                  User's Name
-                </th>
-                <th class="text-center text-subtitle-2 font-weight-bold">
-                  Number of Tools Edited
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="contribution in last30DaysTopContributions"
-                :key="contribution.userName"
-              >
-                <td class="text-left">
-                  <a
-                    :href="`${profileBaseUrl}${contribution.userName
-                      .split(' ')
-                      .join('_')}`"
-                    target="_blank"
-                    >{{ contribution.userName }}</a
-                  >
-                </td>
-
-                <td class="text-center">{{ contribution.toolsEdited }}</td>
-              </tr>
-            </tbody>
-          </template>
-        </v-table>
+        <LeaderboardTable :contributions="last30DaysTopContributions" :title="'Top Hunters from the Last 30 Days'" :profileBaseUrl="profileBaseUrl" />
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12">
-        <v-table class="table elevation-2">
-          <template v-slot:default>
-            <thead>
-              <tr>
-                <th class="text-left text-h5 mx-1 my-3" colspan="2">
-                  All Time Greats
-                </th>
-              </tr>
-              <tr>
-                <th class="text-left text-subtitle-2 font-weight-bold">
-                  User's Name
-                </th>
-                <th class="text-center text-subtitle-2 font-weight-bold">
-                  Number of Tools Edited
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                v-for="contribution in allTimeTopContributions"
-                :key="contribution.userName"
-              >
-                <td class="text-left">
-                  <a
-                    :href="`${profileBaseUrl}${contribution.userName
-                      .split(' ')
-                      .join('_')}`"
-                    target="_blank"
-                    >{{ contribution.userName }}</a
-                  >
-                </td>
-
-                <td class="text-center">{{ contribution.toolsEdited }}</td>
-              </tr>
-            </tbody>
-          </template>
-        </v-table>
+        <LeaderboardTable :contributions="allTimeTopContributions" :title="'All Time Greats'" :profileBaseUrl="profileBaseUrl" />
       </v-col>
     </v-row>
   </v-container>
