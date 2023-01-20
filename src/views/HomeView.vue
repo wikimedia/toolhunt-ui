@@ -11,24 +11,27 @@ const tasks = ref({
 </script>
 
 <template>
-<v-container class="d-flex align-center" style="gap: 16px; max-width: 600px; margin-inline: auto" fluid>
-<v-img
-  src="./src/assets/logo-main.svg"
-  height="100"
-  width="100"
-  class="overflow-visible"
-></v-img>
+  <v-container
+    class="d-flex align-center"
+    style="gap: 16px; max-width: 600px; margin-inline: auto"
+    fluid
+  >
+    <v-img
+      src="./src/assets/logo-main.svg"
+      height="100"
+      width="100"
+      class="overflow-visible"
+    ></v-img>
     <div>
       <p class="text-h2">Toolhunt</p>
-      <p class="text-subtitle-2  d-none d-sm-flex">
-        Currently, many tools in Toolhub have missing or incomplete
-        information.
+      <p class="text-subtitle-2 d-none d-sm-flex">
+        Currently, many tools in Toolhub have missing or incomplete information.
       </p>
-      <p class="text-subtitle-2  d-none d-sm-flex">
+      <p class="text-subtitle-2 d-none d-sm-flex">
         Please help us add the missing fields and incomplete information
       </p>
     </div>
-</v-container>
+  </v-container>
   <v-container>
     <v-row>
       <v-col cols="12">
@@ -83,8 +86,10 @@ const tasks = ref({
           <v-card-action
             class="d-flex justify-center justify-space-around flex-row"
           >
-            <v-btn class="my-2" color="primary base100--text theme--light">Yes Please</v-btn>
-            <v-btn class="my-2" >Skip to Next</v-btn>
+            <v-btn class="my-2" color="primary base100--text theme--light"
+              >Yes Please</v-btn
+            >
+            <v-btn class="my-2">Skip to Next</v-btn>
           </v-card-action>
         </v-card>
       </v-col>
