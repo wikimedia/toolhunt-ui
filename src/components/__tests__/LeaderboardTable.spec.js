@@ -5,6 +5,7 @@ import LeaderboardTable from "../LeaderboardTable.vue";
 
 describe("LeaderboardTable", () => {
   const vuetify = createVuetify();
+  const profileBaseUrl = "https://meta.wikimedia.org/wiki/User:";
   it("renders properly", () => {
     const LeaderboardTableProps = {
       contributions: [
@@ -14,7 +15,7 @@ describe("LeaderboardTable", () => {
         },
       ],
       title: "All Time Best",
-      profileBaseUrl: "https://tests",
+      profileBaseUrl,
     };
     const wrapper = mount(LeaderboardTable, {
       props: LeaderboardTableProps,
@@ -23,5 +24,12 @@ describe("LeaderboardTable", () => {
       },
     });
     expect(wrapper.text()).toContain("All Time Best");
+
+    const firstRow = wrapper.findAll('td')[0].find('a')
+    expect(firstRow.text()).toBe('Hannah Waruguru');
+    expect(firstRow.attributes().href).toBe('https://meta.wikimedia.org/wiki/User:Hannah_Waruguru')
+
+    const contributionCol = wrapper.findAll('td')[1]
+    expect(contributionCol.text()).toBe('12')
   });
 });
