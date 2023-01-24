@@ -1,6 +1,6 @@
 # base image
 # Vite did not like the older version of Node that we'd specified, so I switched to the most recent LTS version
-FROM node:hydrogen-alpine
+FROM node:16-alpine
 
 
 # set working directory
