@@ -25,11 +25,15 @@ describe("LeaderboardTable", () => {
     });
     expect(wrapper.text()).toContain("All Time Best");
 
-    const firstRow = wrapper.findAll('td')[0].find('a')
-    expect(firstRow.text()).toBe('Hannah Waruguru');
-    expect(firstRow.attributes().href).toBe('https://meta.wikimedia.org/wiki/User:Hannah_Waruguru')
+    const firstCol = wrapper.findAll("td")[0].find("a");
+    expect(firstCol.text()).toBe("Hannah Waruguru");
+    expect(firstCol.attributes().href).toBe(
+      "https://meta.wikimedia.org/wiki/User:Hannah_Waruguru"
+    );
 
-    const contributionCol = wrapper.findAll('td')[1]
-    expect(contributionCol.text()).toBe('12')
+    const contributionCol = wrapper.findAll("td")[1];
+    expect(contributionCol.text()).toBe("12");
+    // test that it's rendering one row
+    expect(wrapper.find("tbody").findAll("tr").length).toBe(1);
   });
 });
