@@ -1,8 +1,7 @@
 <script setup>
 import { ref } from "vue";
-import LeaderboardTable from "../components/LeaderboardTable.vue"
+import LeaderboardTable from "../components/LeaderboardTable.vue";
 const profileBaseUrl = ref("https://meta.wikimedia.org/wiki/User:");
-
 
 const last30DaysTopContributions = ref([
   { userName: "BDavis (WMF)", toolsEdited: 32 },
@@ -47,12 +46,20 @@ const allTimeTopContributions = ref([
   <v-container>
     <v-row>
       <v-col cols="12">
-        <LeaderboardTable :contributions="last30DaysTopContributions" :title="'Top Hunters from the Last 30 Days'" :profileBaseUrl="profileBaseUrl" />
+        <LeaderboardTable
+          :contributions="last30DaysTopContributions"
+          :title="'Top Hunters from the Last 30 Days'"
+          :profileBaseUrl="profileBaseUrl"
+        />
       </v-col>
     </v-row>
     <v-row>
       <v-col cols="12">
-        <LeaderboardTable :contributions="allTimeTopContributions" :title="'All Time Greats'" :profileBaseUrl="profileBaseUrl" />
+        <LeaderboardTable
+          :contributions="allTimeTopContributions"
+          :title="'All Time Greats'"
+          :profileBaseUrl="profileBaseUrl"
+        />
       </v-col>
     </v-row>
   </v-container>

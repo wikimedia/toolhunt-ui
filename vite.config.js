@@ -23,4 +23,11 @@ export default defineConfig({
     strictPort: true,
     port: 8082, // needs to be specified
   },
+  test: {
+    globals: true,
+    environment: "jsdom",
+    deps: {
+      inline: ["vuetify"],
+    },
+  },
 });
