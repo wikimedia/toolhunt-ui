@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps } from "vue";
+
 const { contribution } = defineProps({
   contributions: {
     userName: String,
