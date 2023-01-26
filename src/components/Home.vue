@@ -1,13 +1,22 @@
 <script setup>
 import { defineProps } from "vue";
-defineProps({
-  task: {
-    toolName: String,
-    toolDescription: String,
-    url: String,
-    missingField: String,
-  }
+import { ref } from "vue";
+
+const props = defineProps({
+  tasks: Array,
 });
+
+let currentTaskIndex = 0;
+const currentTask = ref(props.tasks[currentTaskIndex]);
+
+function getNextTask() {
+  currentTaskIndex++;
+  if (props.tasks.length <= currentTaskIndex) {
+    // for now it will start at 0 but when connected to backend we can fetch a batch of tasks
+    currentTaskIndex = 0;
+  }
+  currentTask.value = props.tasks[currentTaskIndex];
+}
 </script>
 <template>
   <v-container
@@ -63,19 +72,19 @@ defineProps({
                   <tbody>
                     <tr>
                       <td>Tool Name</td>
-                      <td>{{ task.toolName }}</td>
+                      <td>{{ currentTask.toolName }}</td>
                     </tr>
                     <tr>
                       <td>Tool Description</td>
-                      <td>{{ task.toolDescription }}</td>
+                      <td>{{ currentTask.toolDescription }}</td>
                     </tr>
                     <tr>
                       <td>Url</td>
-                      <td>{{ task.url }}</td>
+                      <td>{{ currentTask.url }}</td>
                     </tr>
                     <tr>
                       <td>Missing Field Name</td>
-                      <td>{{ task.missingField }}</td>
+                      <td>{{ currentTask.missingField }}</td>
                     </tr>
                   </tbody>
                 </v-table>
@@ -88,7 +97,7 @@ defineProps({
             <v-btn class="my-2" color="primary base100--text theme--light"
               >Yes Please</v-btn
             >
-            <v-btn class="my-2">Skip to Next</v-btn>
+            <v-btn @click="getNextTask" class="my-2">Skip to Next</v-btn>
           </v-card-action>
         </v-card>
       </v-col>
