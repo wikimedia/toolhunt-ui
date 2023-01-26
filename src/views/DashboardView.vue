@@ -1,15 +1,10 @@
 <template>
   <v-container
     class="d-flex align-center"
-    style="max-width:800px; gap:16px; margin-inline: auto"
+    style="max-width: 800px; gap: 16px; margin-inline: auto"
     fluid
   >
-    <v-img
-      src="src/assets/logo-main.svg"
-      height="75"
-      width="75"
-      alt=""
-    ></v-img>
+    <v-img src="src/assets/logo-main.svg" height="75" width="75" alt=""></v-img>
     <div>
       <h1>Welcome, {{ userName }}!</h1>
       <p class="d-none d-sm-block">
@@ -23,7 +18,10 @@
   <v-card flat max-width="1400" class="mx-auto">
     <v-container>
       <v-row>
-        <ContributionTable :content="userContributions" :global="false">
+        <ContributionTable
+          :content="userContributions"
+          :showUserProfile="false"
+        >
           My Contributions
         </ContributionTable>
         <v-col>
@@ -87,7 +85,10 @@
             </v-card-text>
           </v-card>
         </v-col>
-        <ContributionTable :content="globalContributions" :global="true">
+        <ContributionTable
+          :content="globalContributions"
+          :showUserProfile="true"
+        >
           Latest Activity
         </ContributionTable>
       </v-row>
@@ -192,6 +193,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

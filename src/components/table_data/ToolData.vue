@@ -1,9 +1,9 @@
 <template>
-<td>
-  Added {{ fieldEdited }} to <a :href= toolHubURL target="_blank"> {{ toolTitle }}</a>
-</td>
+  <td>
+    Added {{ fieldEdited }} to
+    <a :href="toolHubURL" target="_blank"> {{ toolTitle }}</a>
+  </td>
 </template>
-
 <script>
 export default {
   props: {
@@ -12,9 +12,9 @@ export default {
     fieldEdited: String,
   },
   computed: {
-    toolHubURL: function() {
-      return `https://toolhub.wikimedia.org/tools/${this.toolName}`
-    }
-  }
-}
+    toolHubURL: function () {
+      return `https://toolhub.wikimedia.org/tools/${this.toolName}`;
+    },
+  },
+};
 </script>
