@@ -25,10 +25,8 @@ describe("LeaderboardTable", () => {
     });
     const tbody = wrapper.find("tbody");
     const rows = tbody.findAll("tr");
-
     expect(wrapper.text()).toContain("All Time Best");
     const firstRowCols = rows[0].findAll("td");
-
     const firstCol = firstRowCols[0].find("a");
     expect(firstCol.text()).toBe("Hannah Waruguru");
     expect(firstCol.attributes().href).toBe(
