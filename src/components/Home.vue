@@ -63,7 +63,8 @@ function getNextTask() {
                   You can also click the
                   <strong><span class="bg primary">Skip to Next</span></strong>
                   to see if you would prefer to add the next missing field
-                </p>
+                  </p>
+           
               </v-col>
             </v-row>
             <v-row>
