@@ -1,14 +1,12 @@
 <script setup>
 import { defineProps } from "vue";
 import { ref } from "vue";
-
 const props = defineProps({
   tasks: Array,
 });
-
 let currentTaskIndex = 0;
+console.log("Here at Home", props)
 const currentTask = ref(props.tasks[currentTaskIndex]);
-
 function getNextTask() {
   currentTaskIndex++;
   if (props.tasks.length <= currentTaskIndex) {
@@ -64,7 +62,6 @@ function getNextTask() {
                   <strong><span class="bg primary">Skip to Next</span></strong>
                   to see if you would prefer to add the next missing field
                   </p>
-           
               </v-col>
             </v-row>
             <v-row>
@@ -73,19 +70,19 @@ function getNextTask() {
                   <tbody>
                     <tr>
                       <td>Tool Name</td>
-                      <td>{{ currentTask.toolName }}</td>
+                      <td>{{ currentTask.tool.name }}</td>
                     </tr>
                     <tr>
                       <td>Tool Description</td>
-                      <td>{{ currentTask.toolDescription }}</td>
+                      <td>{{ currentTask.tool.description }}</td>
                     </tr>
                     <tr>
                       <td>Url</td>
-                      <td>{{ currentTask.url }}</td>
+                      <td>{{ currentTask.tool.url }}</td>
                     </tr>
                     <tr>
                       <td>Missing Field Name</td>
-                      <td>{{ currentTask.missingField }}</td>
+                      <td>{{ currentTask.field.name }}</td>
                     </tr>
                   </tbody>
                 </v-table>
