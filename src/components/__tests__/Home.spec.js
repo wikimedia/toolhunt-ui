@@ -10,11 +10,20 @@ describe("Home", () => {
     const HomeProps = {
       tasks: [
         {
-          toolName: "Pywikibot",
-          toolDescription:
-            "Python library and collection of scripts that automate work on MediaWiki sites",
-          url: "https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Pywikibot",
-          missingField: "wikidata_qid",
+          field: {
+            description: "a thing for doing the thing",
+            input_options: null,
+            name: "wikidata_qid"
+          },
+          id: 1,
+          timestamp: null,
+          tool: {
+            description: "Shows you little things you can do on Wikidata.",
+            name: "mm_wikidata_todo",
+            title: "Wikidata Todo",
+            url: "http://tools.wmflabs.org/wikidata-todo"
+          },
+          "user": null
         },
       ],
     };
@@ -25,12 +34,12 @@ describe("Home", () => {
       },
     });
     const rows = wrapper.find("tbody").findAll("tr");
-    expect(rows[0].findAll("td")[1].text()).toBe("Pywikibot");
+    expect(rows[0].findAll("td")[1].text()).toBe("mm_wikidata_todo");
     expect(rows[1].findAll("td")[1].text()).toBe(
-      "Python library and collection of scripts that automate work on MediaWiki sites"
+      "Shows you little things you can do on Wikidata."
     );
     expect(rows[2].findAll("td")[1].text()).toBe(
-      "https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Pywikibot"
+      "http://tools.wmflabs.org/wikidata-todo"
     );
     expect(rows[3].findAll("td")[1].text()).toBe("wikidata_qid");
   });
@@ -39,18 +48,36 @@ describe("Home", () => {
     const HomeProps = {
       tasks: [
         {
-          toolName: "Pywikibot",
-          toolDescription:
-            "Python library and collection of scripts that automate work on MediaWiki sites",
-          url: "https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Pywikibot",
-          missingField: "wikidata_qid",
+          field: {
+            description: "a thing for doing the thing",
+            input_options: null,
+            name: "wikidata_qid"
+          },
+          id: 1,
+          timestamp: null,
+          tool: {
+            description: "Python library and collection of scripts that automate work on MediaWiki sites",
+            name: "Pywikibot",
+            title: "Pywikibot",
+            url: "https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Pywikibot"
+          },
+          "user": null
         },
         {
-          toolName: "toolforge-authors",
-          toolDescription:
-            "This project is aimed at getting very basic author statistics for a specified page.",
-          url: "https://toolsadmin.wikimedia.org/tools/id/authors",
-          missingField: "openhub_id",
+          field: {
+            description: "a thing for doing the thing",
+            input_options: null,
+            name: "openhub_id"
+          },
+          id: 1,
+          timestamp: null,
+          tool: {
+            description: "This project is aimed at getting very basic author statistics for a specified page.",
+            name: "toolforge-authors",
+            title: "Wikidata Todo",
+            url: "https://toolsadmin.wikimedia.org/tools/id/authors"
+          },
+          "user": null
         },
       ],
     };
