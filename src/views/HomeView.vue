@@ -1,10 +1,15 @@
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, watchEffect } from "vue";
 import Home from "../components/Home.vue";
 import { getTasks } from "../stores/api.js";
-const tasks = ref([]);
-getTasks().then((data) => (tasks.value = data));
+
+const tasks = ref(null);
+
+watchEffect(async () => {
+  tasks.value = await getTasks()
+})
 </script>
+
 <template>
   <Home :tasks="tasks" />
 </template>

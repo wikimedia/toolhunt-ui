@@ -5,7 +5,6 @@ const props = defineProps({
   tasks: Array,
 });
 let currentTaskIndex = 0;
-console.log("Here at Home", props)
 const currentTask = ref(props.tasks[currentTaskIndex]);
 function getNextTask() {
   currentTaskIndex++;

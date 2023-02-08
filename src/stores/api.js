@@ -1,7 +1,8 @@
 import axios from 'axios'
+
 const BASE_URL = 'http://localhost:8082'
-export function getTasks() {
-    return axios
-    .get(BASE_URL + '/api/tasks', {raw:true})
-    .then((response) => response.data)
+
+export async function getTasks() {
+    const res = await axios.get(BASE_URL + '/api/tasks', {raw:true})
+    return res.data
 }
