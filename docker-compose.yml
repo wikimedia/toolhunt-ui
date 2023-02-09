@@ -1,6 +1,35 @@
 version: "3.7"
 
 services:
+  flask-web:
+    container_name: flask-web
+    image: toolhunt-be:dev
+    ## Uncomment this line to activate bind mount volume to the backend
+    ## this would allow changes to the backend code while running the container
+    ## Note: this assumes the backend code is in a directory called "backend"
+    # volumes: 
+    #   - ../backend:/app 
+    ports:
+      - 5000:5000
+    env_file: ./.env.be.dev
+    command: /start
+    depends_on:
+      - db
+
+  db:
+    container_name: mariadb
+    image: mariadb:10.4
+    restart: always
+    environment:
+      - MARIADB_USER=user
+      - MARIADB_PASSWORD=mypassword
+      - MARIADB_ROOT_PASSWORD=rootpassword
+      - MARIADB_DATABASE=mydatabase
+    volumes:
+      - dbdata:/var/lib/mariadb/data/
+    ports:
+      - 3306:3306
+
   toolhunt:
     container_name: toolhunt
     build:
@@ -11,3 +40,6 @@ services:
       - /app/node_modules # do not bind mount node_modules
     ports:
       - "8082:8082"
+
+volumes:
+  dbdata:
