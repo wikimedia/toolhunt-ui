@@ -5,7 +5,7 @@ import UserProfile from "./table_data/UserProfile.vue";
 import { defineProps } from "vue";
 
 const { contribution } = defineProps({
-  content: Array,
+  contributions: Array,
   showUserProfile: Boolean,
 });
 </script>
@@ -19,18 +19,18 @@ const { contribution } = defineProps({
         <v-table class="contributionTable">
           <tbody>
             <tr
-              v-for="contribution in content"
+              v-for="contribution in contributions"
               :key="contribution.dateModified"
             >
-              <DateString :dateString="contribution.dateModified" />
+              <DateString :dateString="contribution.timestamp" />
               <UserProfile
                 v-if="this.showUserProfile"
                 :user="contribution.user"
               />
               <ToolData
-                :toolName="contribution.toolName"
+                :toolName="contribution.tool_name"
                 :toolTitle="contribution.toolTitle"
-                :fieldEdited="contribution.fieldEdited"
+                :fieldEdited="contribution.field_name"
               />
             </tr>
           </tbody>
