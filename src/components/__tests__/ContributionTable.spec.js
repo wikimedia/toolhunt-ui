@@ -7,13 +7,13 @@ describe("ContributionTable", () => {
   const vuetify = createVuetify();
   it("renders properly", () => {
     const ContributionTableProps = {
-      content: [
+      contributions: [
         {
           user: "NicoleLBee",
-          toolName: "pywikibot",
+          tool_name: "pywikibot",
           toolTitle: "Pywikibot",
-          fieldEdited: "available_ui_languages",
-          dateModified: 1666214747862,
+          field_name: "available_ui_languages",
+          timestamp: 1666214747862,
         },
       ],
       showUserProfile: true,
@@ -26,7 +26,7 @@ describe("ContributionTable", () => {
     });
     const tbody = wrapper.find("tbody");
     const rows = tbody.findAll("tr");
-    expect(rows.length).toBe(ContributionTableProps.content.length);
+    expect(rows.length).toBe(ContributionTableProps.contributions.length);
 
     const columns = rows[0].findAll("td");
     expect(columns[0].text()).toBe(
@@ -43,13 +43,13 @@ describe("ContributionTable", () => {
   });
   it("hides user data column ", () => {
     const ContributionTableProps = {
-      content: [
+      contributions: [
         {
           user: "NicoleLBee",
-          toolName: "pywikibot",
+          tool_name: "pywikibot",
           toolTitle: "Pywikibot",
-          fieldEdited: "available_ui_languages",
-          dateModified: 1666214747862,
+          field_name: "available_ui_languages",
+          timestamp: 1666214747862,
         },
       ],
       showUserProfile: false,

@@ -1,43 +1,17 @@
 <script setup>
 import ContributionTable from "../components/ContributionTable.vue";
 import { ref, watchEffect } from "vue";
-import { getLatestContributions } from "../stores/api.js";
+import { getLatestContributions, getMyContributions } from "../stores/api.js";
 
 function calcPercentMissing(numberMissing, numberTotal) {
   return ((numberMissing / numberTotal) * 100).toFixed(2);
 }
 
-const userName = ref("NicoleLBee");
-const userContributions = ref([
-  {
-    user: "NicoleLBee",
-    toolName: "pywikibot",
-    toolTitle: "Pywikibot",
-    fieldEdited: "available_ui_languages",
-    dateModified: 1666214747862,
-  },
-  {
-    user: "NicoleLBee",
-    toolName: "mm_wikidata_todo",
-    toolTitle: "Wikidata Todo",
-    fieldEdited: "for_wikis",
-    dateModified: 1658227200000,
-  },
-  {
-    user: "NicoleLBee",
-    toolName: "mm_find_duplicate_items",
-    toolTitle: "Find duplicate items",
-    fieldEdited: "repository",
-    dateModified: 1655449600000,
-  },
-  {
-    user: "NicoleLBee",
-    toolName: "pywikibot",
-    toolTitle: "Pywikibot",
-    fieldEdited: "icon",
-    dateModified: 1651447200000,
-  },
-]);
+const userName = ref("Hannah Waruguru");
+const userContributions = ref(null);
+watchEffect(async () => {
+  userContributions.value = await getMyContributions(userName.value)
+})
 
 const globalContributions = ref(null);
 watchEffect(async () => {
