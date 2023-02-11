@@ -10,8 +10,8 @@ describe("LeaderboardTable", () => {
     const LeaderboardTableProps = {
       contributions: [
         {
-          userName: "Hannah Waruguru",
-          toolsEdited: 12,
+          user: "Hannah Waruguru",
+          score: 12,
         },
       ],
       title: "All Time Best",
