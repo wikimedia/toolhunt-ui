@@ -1,23 +1,22 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
 import LeaderboardTable from "../components/LeaderboardTable.vue";
+import { getAllTimeGreat } from "../stores/api.js";
+
 const profileBaseUrl = ref("https://meta.wikimedia.org/wiki/User:");
 
 const last30DaysTopContributions = ref([
-  { userName: "BDavis (WMF)", toolsEdited: 32 },
-  { userName: "Sage (Wiki Ed)", toolsEdited: 22 },
-  { userName: "Demo Unicorn", toolsEdited: 20 },
-  { userName: "NicoleLBee", toolsEdited: 17 },
-  { userName: "Hannah Waruguru", toolsEdited: 12 },
+  { user: "BDavis (WMF)", score: 32 },
+  { user: "Sage (Wiki Ed)", score: 22 },
+  { user: "Demo Unicorn", score: 20 },
+  { user: "NicoleLBee", score: 17 },
+  { user: "Hannah Waruguru", score: 12 },
 ]);
 
-const allTimeTopContributions = ref([
-  { userName: "Gaurav Jhammat", toolsEdited: 86 },
-  { userName: "Benni Prüfer", toolsEdited: 70 },
-  { userName: "FNegri-WMF", toolsEdited: 50 },
-  { userName: "NicoleLBee", toolsEdited: 40 },
-  { userName: "Hannah Waruguru", toolsEdited: 20 },
-]);
+const allTimeTopContributions = ref(null);
+watchEffect(async () => {
+  allTimeTopContributions.value = await getAllTimeGreat()
+})
 </script>
 
 <template>
