@@ -11,3 +11,8 @@ services:
       - /app/node_modules # do not bind mount node_modules
     ports:
       - "8082:8082"
+    networks:
+      - toolhunt-net
+networks:
+  toolhunt-net:
+    external: true
