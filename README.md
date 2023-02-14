@@ -6,9 +6,8 @@ Frontend Repository for Toolhunt. Toolhunt is a web application for editing Tool
 ## Setup/Installation Requirements
 * Clone the Frontend repository to your machine using `git clone https://github.com/wikimedia/toolhunt-ui.git` 
 * Clone the Backend repository to your machine using `git clone https://github.com/wikimedia/toolhunt.git`
-* cd into the cloned Backend repository to build the Docker image using the Dockerfile located in the ./compose/flask/ directory. `docker build -f ./compose/flask/Dockerfile . -t toolhunt-be:dev`
-* CD to the cloned Frontend repository and run this command `docker-compose down && docker-compose up -d`
-* Insert data to the database using the instructions on the [Backend repository](https://github.com/wikimedia/toolhunt)
+* CD into the Backend directory and follow the setup instructions in the README
+* CD to the cloned Frontend repository and run this command `docker-compose up -d`
 * Finally, to view the Frontend page on the browser: Naviage to `http://localhost:8082/`
 ## Languages and Tools
 * Vue.js
