@@ -7,6 +7,7 @@ Frontend Repository for Toolhunt. Toolhunt is a web application for editing Tool
 * Clone the Frontend repository to your machine using `git clone https://github.com/wikimedia/toolhunt-ui.git` 
 * Clone the Backend repository to your machine using `git clone https://github.com/wikimedia/toolhunt.git`
 * CD into the Backend directory and follow the setup instructions in the README
+* Note: The Backend services need to be running before starting the Frontend service
 * CD to the cloned Frontend repository and run this command `docker-compose up -d`
 * Finally, to view the Frontend page on the browser: Naviage to `http://localhost:8082/`
 ## Languages and Tools
