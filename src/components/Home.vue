@@ -1,18 +1,22 @@
 <script setup>
 import { defineProps } from "vue";
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
 const props = defineProps({
   tasks: Array,
 });
-let currentTaskIndex = 0;
-const currentTask = ref(props.tasks[currentTaskIndex]);
+const currentTaskIndex = ref(0);
+const currentTask = ref(null);
+
+watchEffect(() => {
+  currentTask.value = props.tasks[currentTaskIndex.value];
+})
+
 function getNextTask() {
-  currentTaskIndex++;
-  if (props.tasks.length <= currentTaskIndex) {
+  currentTaskIndex.value++;
+  if (props.tasks.length <= currentTaskIndex.value) {
     // for now it will start at 0 but when connected to backend we can fetch a batch of tasks
-    currentTaskIndex = 0;
+    currentTaskIndex.value = 0;
   }
-  currentTask.value = props.tasks[currentTaskIndex];
 }
 </script>
 <template>
@@ -69,19 +73,19 @@ function getNextTask() {
                   <tbody>
                     <tr>
                       <td>Tool Name</td>
-                      <td>{{ currentTask.tool.name }}</td>
+                      <td>{{ currentTask?.tool?.name }}</td>
                     </tr>
                     <tr>
                       <td>Tool Description</td>
-                      <td>{{ currentTask.tool.description }}</td>
+                      <td>{{ currentTask?.tool?.description }}</td>
                     </tr>
                     <tr>
                       <td>Url</td>
-                      <td>{{ currentTask.tool.url }}</td>
+                      <td>{{ currentTask?.tool?.url }}</td>
                     </tr>
                     <tr>
                       <td>Missing Field Name</td>
-                      <td>{{ currentTask.field.name }}</td>
+                      <td>{{ currentTask?.field?.name }}</td>
                     </tr>
                   </tbody>
                 </v-table>

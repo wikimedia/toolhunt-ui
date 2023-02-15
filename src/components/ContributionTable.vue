@@ -22,15 +22,15 @@ const { contribution } = defineProps({
               v-for="contribution in contributions"
               :key="contribution.dateModified"
             >
-              <DateString :dateString="contribution.timestamp" />
+              <DateString :dateString="contribution?.timestamp" />
               <UserProfile
                 v-if="this.showUserProfile"
                 :user="contribution.user"
               />
               <ToolData
-                :toolName="contribution.tool_name"
-                :toolTitle="contribution.tool.title"
-                :fieldEdited="contribution.field_name"
+                :toolName="contribution?.tool_name"
+                :toolTitle="contribution?.tool.title"
+                :fieldEdited="contribution?.field_name"
               />
             </tr>
           </tbody>

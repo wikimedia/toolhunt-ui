@@ -36,15 +36,15 @@ const { contribution } = defineProps({
         >
           <td class="text-left">
             <a
-              :href="`${profileBaseUrl}${contribution.user
+              :href="`${profileBaseUrl}${contribution?.user
                 .split(' ')
                 .join('_')}`"
               target="_blank"
-              >{{ contribution.user }}</a
+              >{{ contribution?.user }}</a
             >
           </td>
 
-          <td class="text-center">{{ contribution.score }}</td>
+          <td class="text-center">{{ contribution?.score }}</td>
         </tr>
       </tbody>
     </template>
