@@ -8,15 +8,27 @@ function calcPercentMissing(numberMissing, numberTotal) {
 }
 
 const userName = ref("Hannah Waruguru");
-const userContributions = ref(null);
+const userContributions = ref([]);
+const isError = ref(false);
+
 watchEffect(async () => {
-  userContributions.value = await getMyContributions(userName.value)
+  try {
+    userContributions.value = await getMyContributions(userName.value)
+  } catch(error) {
+    isError.value = true
+    console.log(error)
+  }
 })
 
-const globalContributions = ref(null);
+const globalContributions = ref([]);
 watchEffect(async () => {
-  globalContributions.value = await getLatestContributions()
-})
+  try {
+    globalContributions.value = await getLatestContributions();
+  } catch (error) {
+    isError.value = true;
+    console.log(error);
+  }
+});
 
 const globalStats = ref({
   totalTools: 2702,
@@ -54,6 +66,7 @@ const userStats = ref({
         <ContributionTable
           :contributions="userContributions"
           :showUserProfile="false"
+          v-if="userContributions.length > 0"
         >
           My Contributions
         </ContributionTable>
@@ -118,9 +131,12 @@ const userStats = ref({
             </v-card-text>
           </v-card>
         </v-col>
+      </v-row>
+      <v-row>
         <ContributionTable
           :contributions="globalContributions"
           :showUserProfile="true"
+          v-if="globalContributions.length > 0"
         >
           Latest Activity
         </ContributionTable>

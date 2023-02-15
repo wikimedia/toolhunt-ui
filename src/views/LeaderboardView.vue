@@ -13,9 +13,15 @@ const last30DaysTopContributions = ref([
   { user: "Hannah Waruguru", score: 12 },
 ]);
 
-const allTimeTopContributions = ref(null);
+const allTimeTopContributions = ref([]);
+const isError = ref(false)
 watchEffect(async () => {
-  allTimeTopContributions.value = await getAllTimeGreat()
+  try {
+    allTimeTopContributions.value = await getAllTimeGreat()
+  } catch(error) {
+    isError.value = true
+    console.log(error)
+  }
 })
 </script>
 
@@ -58,6 +64,7 @@ watchEffect(async () => {
           :contributions="allTimeTopContributions"
           :title="'All Time Greats'"
           :profileBaseUrl="profileBaseUrl"
+          :isError="isError"
         />
       </v-col>
     </v-row>

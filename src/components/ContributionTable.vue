@@ -7,6 +7,7 @@ import { defineProps } from "vue";
 const { contribution } = defineProps({
   contributions: Array,
   showUserProfile: Boolean,
+  isError: Boolean,
 });
 </script>
 <template>
@@ -27,7 +28,7 @@ const { contribution } = defineProps({
                 v-if="this.showUserProfile"
                 :user="contribution.user"
               />
-              <ToolData
+              <ToolData 
                 :toolName="contribution?.tool_name"
                 :toolTitle="contribution?.tool.title"
                 :fieldEdited="contribution?.field_name"
