@@ -1,21 +1,23 @@
 <script setup>
 import { defineProps } from "vue";
-import { ref } from "vue";
-
+import { ref, watchEffect } from "vue";
 const props = defineProps({
   tasks: Array,
+  isError: Boolean,
+});
+const currentTaskIndex = ref(0);
+const currentTask = ref(null);
+
+watchEffect(() => {
+  currentTask.value = props.tasks[currentTaskIndex.value];
 });
 
-let currentTaskIndex = 0;
-const currentTask = ref(props.tasks[currentTaskIndex]);
-
 function getNextTask() {
-  currentTaskIndex++;
-  if (props.tasks.length <= currentTaskIndex) {
+  currentTaskIndex.value++;
+  if (props.tasks.length <= currentTaskIndex.value) {
     // for now it will start at 0 but when connected to backend we can fetch a batch of tasks
-    currentTaskIndex = 0;
+    currentTaskIndex.value = 0;
   }
-  currentTask.value = props.tasks[currentTaskIndex];
 }
 </script>
 <template>
@@ -63,29 +65,37 @@ function getNextTask() {
                   You can also click the
                   <strong><span class="bg primary">Skip to Next</span></strong>
                   to see if you would prefer to add the next missing field
-                  </p>
-           
+                </p>
               </v-col>
             </v-row>
             <v-row>
               <v-col cols="12">
                 <v-table class="table elevation-2">
+                  <tr>
+                    <th colspan="2" v-if="isError">
+                      <v-alert
+                        density="compact"
+                        type="error"
+                        text="We are having trouble fetching this data for you right now, please refresh the page"
+                      ></v-alert>
+                    </th>
+                  </tr>
                   <tbody>
                     <tr>
                       <td>Tool Name</td>
-                      <td>{{ currentTask.toolName }}</td>
+                      <td>{{ currentTask?.tool?.name }}</td>
                     </tr>
                     <tr>
                       <td>Tool Description</td>
-                      <td>{{ currentTask.toolDescription }}</td>
+                      <td>{{ currentTask?.tool?.description }}</td>
                     </tr>
                     <tr>
                       <td>Url</td>
-                      <td>{{ currentTask.url }}</td>
+                      <td>{{ currentTask?.tool?.url }}</td>
                     </tr>
                     <tr>
                       <td>Missing Field Name</td>
-                      <td>{{ currentTask.missingField }}</td>
+                      <td>{{ currentTask?.field?.name }}</td>
                     </tr>
                   </tbody>
                 </v-table>
@@ -95,10 +105,15 @@ function getNextTask() {
           <v-card-action
             class="d-flex justify-center justify-space-around flex-row"
           >
-            <v-btn class="my-2" color="primary base100--text theme--light"
+            <v-btn
+              class="my-2"
+              color="primary base100--text theme--light"
+              :disabled="isError"
               >Yes Please</v-btn
             >
-            <v-btn @click="getNextTask" class="my-2">Skip to Next</v-btn>
+            <v-btn @click="getNextTask" class="my-2" :disabled="isError"
+              >Skip to Next</v-btn
+            >
           </v-card-action>
         </v-card>
       </v-col>
