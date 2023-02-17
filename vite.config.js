@@ -25,6 +25,10 @@ export default defineConfig({
     proxy: {
       // string shorthand: http://localhost:8082/api -> http://localhost:5000/api
       '/api': 'http://flask-web:5000',
+      '/openapi.json': {
+        target: 'http://flask-web:5000',
+        changeOrigin: true,
+      },
     }
   },
   test: {
