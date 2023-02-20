@@ -107,8 +107,15 @@ function getNextTask() {
           <v-card-action
             class="d-flex justify-center justify-space-around flex-row"
           >
-            <UserContribution class="my-2"></UserContribution>
-            <v-btn @click="getNextTask" class="my-2" :disabled="isError">Skip to Next</v-btn>
+            <UserContribution
+              class="my-2"
+              :description="currentTask?.field?.description"
+              :inputOptions="currentTask?.field?.input_options"
+              :missingFieldName="currentTask?.field?.name"
+            ></UserContribution>
+            <v-btn @click="getNextTask" class="my-2" :disabled="isError"
+              >Skip to Next</v-btn
+            >
           </v-card-action>
         </v-card>
       </v-col>

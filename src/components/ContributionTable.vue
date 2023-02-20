@@ -30,7 +30,7 @@ const { contribution } = defineProps({
               />
               <ToolData 
                 :toolName="contribution?.tool_name"
-                :toolTitle="contribution?.tool.title"
+                :toolTitle="contribution?.tool?.title"
                 :fieldEdited="contribution?.field_name"
               />
             </tr>

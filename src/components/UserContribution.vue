@@ -1,15 +1,22 @@
 <script setup>
-import { ref } from "vue";
+import { ref, defineProps, computed } from "vue";
 import TextField from "./FieldTypes/TextField.vue";
 import MultipleSelect from "./FieldTypes/MultipleSelect.vue";
 import SingleSelect from "./FieldTypes/SingleSelect.vue";
 
 const dialog = ref(false);
-const data = ref({
-  description: "a thing for doing the thing",
-  input_options: null,
-  name: "wikidata_qid"
+const data = defineProps({
+  description: String,
+  inputOptions: String,
+  missingFieldName: String,
 });
+
+const MissingFieldValue = ref(null);
+
+const inputOptionsArray = computed(() => {
+  return data.inputOptions ? data.inputOptions?.split(",") : [];
+});
+const MissingFieldValue1 = ref(inputOptionsArray);
 </script>
 <template>
   <v-dialog v-model="dialog" persistent>
@@ -18,40 +25,49 @@ const data = ref({
         Yes Please
       </v-btn>
     </template>
-    <v-card>
-      <v-card-title>
-        <span class="text-h5">User Profile</span>
-      </v-card-title>
-      <v-card-text>
-        <v-container>
+    <v-container>
+      <v-card>
+        <v-card-title>
+          <span class="text-h5">Missing Field Form</span>
+        </v-card-title>
+        <v-card-text>
+          <p class="my-4">
+            Please help us add the missing information for below field
+          </p>
+
           <v-row>
             <TextField
-              v-if="!data.input_options"
-              :missingFieldName="data.name"
+              v-if="!data.inputOptions"
+              v-model="MissingFieldValue"
+              :missingFieldName="data.missingFieldName"
+              :description="data.description"
             ></TextField>
             <SingleSelect
-              v-if="data.input_options?.length > 0"
-              :missingFieldName="data.name"
-              :inputOptions="data.input_options"
+              v-if="inputOptionsArray?.length > 0"
+              v-model="MissingFieldValue"
+              :missingFieldName="data.missingFieldName"
+              :inputOptions="inputOptionsArray"
+              :description="data.description"
             ></SingleSelect>
             <MultipleSelect
-              v-if="data.input_options?.length > 0"
-              :missingFieldName="data.name"
-              :inputOptions="data.input_options"
+              v-if="inputOptionsArray?.length > 0"
+              v-model="MissingFieldValue"
+              :missingFieldName="data.missingFieldName"
+              :inputOptions="inputOptionsArray"
+              :description="data.description"
             ></MultipleSelect>
           </v-row>
-        </v-container>
-        <small>*indicates required field</small>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
-          Close
-        </v-btn>
-        <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
-          Save
-        </v-btn>
-      </v-card-actions>
-    </v-card>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+            Close
+          </v-btn>
+          <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+            Save
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-container>
   </v-dialog>
 </template>
