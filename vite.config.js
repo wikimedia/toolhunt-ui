@@ -22,6 +22,10 @@ export default defineConfig({
     },
     strictPort: true,
     port: 8082, // needs to be specified
+    proxy: {
+      // string shorthand: http://localhost:8082/api -> http://localhost:5000/api
+      '/api': 'http://flask-web:5000',
+    }
   },
   test: {
     globals: true,

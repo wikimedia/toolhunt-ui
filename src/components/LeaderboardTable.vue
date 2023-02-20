@@ -4,11 +4,12 @@ import { defineProps } from "vue";
 const { contribution } = defineProps({
   contributions: {
     userName: String,
-    toolsEdited: Number
+    toolsEdited: Number,
   },
   title: String,
-  profileBaseUrl: String
-})
+  profileBaseUrl: String,
+  isError: Boolean,
+});
 </script>
 
 <template>
@@ -28,23 +29,29 @@ const { contribution } = defineProps({
             Number of Tools Edited
           </th>
         </tr>
+        <tr>
+          <th colspan="2" v-if="isError">
+            <v-alert
+              density="compact"
+              type="error"
+              text="We are having a problem fetching this data for you right now, please refresh the page"
+            ></v-alert>
+          </th>
+        </tr>
       </thead>
-      <tbody>
-        <tr
-          v-for="contribution in contributions"
-          :key="contribution.userName"
-        >
+      <tbody v-if="!isError">
+        <tr v-for="contribution in contributions" :key="contribution.user">
           <td class="text-left">
             <a
-              :href="`${profileBaseUrl}${contribution.userName
+              :href="`${profileBaseUrl}${contribution?.user
                 .split(' ')
                 .join('_')}`"
               target="_blank"
-              >{{ contribution.userName }}</a
+              >{{ contribution?.user }}</a
             >
           </td>
 
-          <td class="text-center">{{ contribution.toolsEdited }}</td>
+          <td class="text-center">{{ contribution?.score }}</td>
         </tr>
       </tbody>
     </template>

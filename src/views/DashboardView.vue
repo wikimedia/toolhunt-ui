@@ -1,3 +1,48 @@
+<script setup>
+import ContributionTable from "../components/ContributionTable.vue";
+import { ref, watchEffect } from "vue";
+import { getLatestContributions, getMyContributions } from "../stores/api.js";
+
+function calcPercentMissing(numberMissing, numberTotal) {
+  return ((numberMissing / numberTotal) * 100).toFixed(2);
+}
+
+const userName = ref("Hannah Waruguru");
+const userContributions = ref([]);
+const isError = ref(false);
+
+watchEffect(async () => {
+  try {
+    userContributions.value = await getMyContributions(userName.value)
+  } catch(error) {
+    isError.value = true
+    console.log(error)
+  }
+})
+
+const globalContributions = ref([]);
+watchEffect(async () => {
+  try {
+    globalContributions.value = await getLatestContributions();
+  } catch (error) {
+    isError.value = true;
+    console.log(error);
+  }
+});
+
+const globalStats = ref({
+  totalTools: 2702,
+  toolsMissingInfo: 2701,
+  contributionsLast30Days: 73,
+  contributionsTotal: 226,
+});
+
+const userStats = ref({
+  contributionsLast30Days: 4,
+  contributionsTotal: 10,
+});
+</script>
+
 <template>
   <v-container
     class="d-flex align-center"
@@ -19,8 +64,9 @@
     <v-container>
       <v-row>
         <ContributionTable
-          :content="userContributions"
+          :contributions="userContributions"
           :showUserProfile="false"
+          v-if="userContributions.length > 0"
         >
           My Contributions
         </ContributionTable>
@@ -85,9 +131,12 @@
             </v-card-text>
           </v-card>
         </v-col>
+      </v-row>
+      <v-row>
         <ContributionTable
-          :content="globalContributions"
+          :contributions="globalContributions"
           :showUserProfile="true"
+          v-if="globalContributions.length > 0"
         >
           Latest Activity
         </ContributionTable>
@@ -95,102 +144,3 @@
     </v-container>
   </v-card>
 </template>
-
-<script>
-import ContributionTable from "../components/ContributionTable.vue";
-export default {
-  components: {
-    ContributionTable,
-  },
-  methods: {
-    calcPercentMissing(numberMissing, numberTotal) {
-      return ((numberMissing / numberTotal) * 100).toFixed(2);
-    },
-  },
-  data() {
-    return {
-      userName: "NicoleLBee",
-      userContributions: [
-        {
-          user: "NicoleLBee",
-          toolName: "pywikibot",
-          toolTitle: "Pywikibot",
-          fieldEdited: "available_ui_languages",
-          dateModified: 1666214747862,
-        },
-        {
-          user: "NicoleLBee",
-          toolName: "mm_wikidata_todo",
-          toolTitle: "Wikidata Todo",
-          fieldEdited: "for_wikis",
-          dateModified: 1658227200000,
-        },
-        {
-          user: "NicoleLBee",
-          toolName: "mm_find_duplicate_items",
-          toolTitle: "Find duplicate items",
-          fieldEdited: "repository",
-          dateModified: 1655449600000,
-        },
-        {
-          user: "NicoleLBee",
-          toolName: "pywikibot",
-          toolTitle: "Pywikibot",
-          fieldEdited: "icon",
-          dateModified: 1651447200000,
-        },
-      ],
-
-      globalContributions: [
-        {
-          user: "DannyBoyyy77",
-          toolName: "xtools-ec",
-          toolTitle: "XTools Edit Counter",
-          fieldEdited: "icon",
-          dateModified: 1666514747862,
-        },
-        {
-          user: "Ellenello",
-          toolName: "metawiki-jon-harald-søby-diffedit",
-          toolTitle: "diffedit",
-          fieldEdited: "repository",
-          dateModified: 1666505047862,
-        },
-        {
-          user: "DannyBoyyy77",
-          toolName: "xtools-ec",
-          toolTitle: "XTools Edit Counter",
-          fieldEdited: "privacy_policy_url",
-          dateModified: 1666500047862,
-        },
-        {
-          user: "Javier Alejandro Herrera Carvajal",
-          toolName: "toolforge-croptool",
-          toolTitle: "CropTool",
-          fieldEdited: "available_ui_languages",
-          dateModified: 1666410745862,
-        },
-        {
-          user: "Tabby578",
-          toolName: "pywikibot",
-          toolTitle: "Pywikibot",
-          fieldEdited: "tool_type",
-          dateModified: 1666304737862,
-        },
-      ],
-      globalStats: {
-        totalTools: 2702,
-        toolsMissingInfo: 2701,
-        contributionsLast30Days: 73,
-        contributionsTotal: 226,
-      },
-      userStats: {
-        contributionsLast30Days: 4,
-        contributionsTotal: 10,
-      },
-    };
-  },
-};
-</script>
-
-<style></style>
