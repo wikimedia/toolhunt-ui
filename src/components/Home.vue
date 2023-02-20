@@ -1,6 +1,7 @@
 <script setup>
 import { defineProps } from "vue";
 import { ref } from "vue";
+import UserContribution from "./UserContribution.vue";
 
 const props = defineProps({
   tasks: Array,
@@ -63,8 +64,7 @@ function getNextTask() {
                   You can also click the
                   <strong><span class="bg primary">Skip to Next</span></strong>
                   to see if you would prefer to add the next missing field
-                  </p>
-           
+                </p>
               </v-col>
             </v-row>
             <v-row>
@@ -95,9 +95,7 @@ function getNextTask() {
           <v-card-action
             class="d-flex justify-center justify-space-around flex-row"
           >
-            <v-btn class="my-2" color="primary base100--text theme--light"
-              >Yes Please</v-btn
-            >
+            <UserContribution class="my-2"></UserContribution>
             <v-btn @click="getNextTask" class="my-2">Skip to Next</v-btn>
           </v-card-action>
         </v-card>
