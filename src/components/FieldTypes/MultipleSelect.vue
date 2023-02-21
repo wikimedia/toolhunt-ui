@@ -23,6 +23,8 @@ const value = computed({
   <v-col cols="12" sm="6">
     <v-autocomplete
       v-model="value"
+      item-title="value"
+      item-value="key"
       :items="inputOptions"
       :label="this.missingFieldName"
       multiple

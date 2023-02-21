@@ -11,7 +11,7 @@ const props = defineProps({
 
 const emit = defineEmits(["update:modelValue"]);
 
-const value = computed({
+const valueSelected = computed({
   get() {
     return props.modelValue;
   },
@@ -23,7 +23,9 @@ const value = computed({
 <template>
   <v-col cols="12" sm="6">
     <v-select
-      v-model="value"
+      v-model="valueSelected"
+      item-title="value"
+      item-value="key"
       :items="inputOptions"
       :label="this.missingFieldName"
       :hint="this.description"

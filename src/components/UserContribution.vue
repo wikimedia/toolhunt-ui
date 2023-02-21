@@ -8,7 +8,7 @@ import { recordUserContribution } from "../stores/api.js";
 const dialog = ref(false);
 const data = defineProps({
   description: String,
-  inputOptions: String,
+  inputOptions: Object,
   missingFieldName: String,
   toolName: String,
   taskId: Number
@@ -16,7 +16,7 @@ const data = defineProps({
 
 const missingFieldValue = ref(null);
 const inputOptionsArray = computed(() => {
-  return data.inputOptions ? data.inputOptions?.split(",") : [];
+  return data.inputOptions ? Object.entries(data.inputOptions).map(([key, value]) => ({key,value})) : [];
 });
 
 
@@ -70,13 +70,13 @@ async function postUserContribution() {
               :inputOptions="inputOptionsArray"
               :description="data.description"
             ></SingleSelect>
-            <MultipleSelect
+            <!-- <MultipleSelect
               v-if="inputOptionsArray?.length > 0"
               v-model="missingFieldValue"
               :missingFieldName="data.missingFieldName"
               :inputOptions="inputOptionsArray"
               :description="data.description"
-            ></MultipleSelect>
+            ></MultipleSelect> -->
           </v-row>
         </v-card-text>
         <v-card-actions>
