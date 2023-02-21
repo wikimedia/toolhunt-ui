@@ -112,6 +112,8 @@ function getNextTask() {
               :description="currentTask?.field?.description"
               :inputOptions="currentTask?.field?.input_options"
               :missingFieldName="currentTask?.field?.name"
+              :toolName="currentTask?.tool?.name"
+              :taskId="currentTask?.id"
             ></UserContribution>
             <v-btn @click="getNextTask" class="my-2" :disabled="isError"
               >Skip to Next</v-btn
