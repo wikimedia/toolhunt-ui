@@ -21,7 +21,7 @@ const valueSelected = computed({
 });
 </script>
 <template>
-  <v-col cols="12" sm="6">
+  <v-col cols="12" sm="12">
     <v-select
       v-model="valueSelected"
       item-title="value"

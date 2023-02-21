@@ -11,33 +11,40 @@ const data = defineProps({
   inputOptions: Object,
   missingFieldName: String,
   toolName: String,
-  taskId: Number
+  taskId: Number,
 });
 
 const missingFieldValue = ref(null);
 const inputOptionsArray = computed(() => {
-  return data.inputOptions ? Object.entries(data.inputOptions).map(([key, value]) => ({key,value})) : [];
+  return data.inputOptions
+    ? Object.entries(data.inputOptions).map(([key, value]) => ({ key, value }))
+    : [];
 });
 
-
 async function postUserContribution() {
-  const validatedValue = missingFieldValue.value.trim()
-  if (validatedValue.length > 0) {
+  if (missingFieldValue.value.length > 0) {
     const contributionRecord = {
-      value: validatedValue,
+      value: Array.isArray(missingFieldValue.value) ? missingFieldValue.value.join() : missingFieldValue.value,
       field: data.missingFieldName,
       tool: data.toolName,
     };
 
     try {
-      await recordUserContribution(data.taskId, contributionRecord)
+      await recordUserContribution(data.taskId, contributionRecord);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dialog.value = false;
+      missingFieldValue.value = null;
     }
-    catch (error) {
-      console.log(error)
-    }
-    dialog.value = false
   }
 }
+
+function closeDialog() {
+  dialog.value = false;
+  missingFieldValue.value = null;
+}
+
 </script>
 <template>
   <v-dialog v-model="dialog" persistent>
@@ -64,27 +71,34 @@ async function postUserContribution() {
               :description="data.description"
             ></TextField>
             <SingleSelect
-              v-if="inputOptionsArray?.length > 0"
+              v-if="
+                inputOptionsArray?.length > 0 &&
+                missingFieldName === 'tool_type'
+              "
               v-model="missingFieldValue"
               :missingFieldName="data.missingFieldName"
               :inputOptions="inputOptionsArray"
               :description="data.description"
             ></SingleSelect>
-            <!-- <MultipleSelect
+            <MultipleSelect
               v-if="inputOptionsArray?.length > 0"
               v-model="missingFieldValue"
               :missingFieldName="data.missingFieldName"
               :inputOptions="inputOptionsArray"
               :description="data.description"
-            ></MultipleSelect> -->
+            ></MultipleSelect>
           </v-row>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue-darken-1" variant="text" @click="dialog = false">
+          <v-btn color="blue-darken-1" variant="text" @click="closeDialog">
             Close
           </v-btn>
-          <v-btn color="blue-darken-1" variant="text" @click="postUserContribution">
+          <v-btn
+            color="blue-darken-1"
+            variant="text"
+            @click="postUserContribution"
+          >
             Save
           </v-btn>
         </v-card-actions>

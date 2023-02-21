@@ -20,7 +20,7 @@ const value = computed({
 });
 </script>
 <template>
-  <v-col cols="12" sm="6">
+  <v-col cols="12" sm="12">
     <v-autocomplete
       v-model="value"
       item-title="value"
