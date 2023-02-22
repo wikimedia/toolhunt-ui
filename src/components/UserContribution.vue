@@ -12,6 +12,7 @@ const data = defineProps({
   missingFieldName: String,
   toolName: String,
   taskId: Number,
+  isError: Boolean
 });
 
 const missingFieldValue = ref(null);
@@ -24,7 +25,9 @@ const inputOptionsArray = computed(() => {
 async function postUserContribution() {
   if (missingFieldValue.value.length > 0) {
     const contributionRecord = {
-      value: Array.isArray(missingFieldValue.value) ? missingFieldValue.value.join() : missingFieldValue.value,
+      value: Array.isArray(missingFieldValue.value)
+        ? missingFieldValue.value.join()
+        : missingFieldValue.value,
       field: data.missingFieldName,
       tool: data.toolName,
     };
@@ -44,12 +47,11 @@ function closeDialog() {
   dialog.value = false;
   missingFieldValue.value = null;
 }
-
 </script>
 <template>
   <v-dialog v-model="dialog" persistent>
     <template v-slot:activator="{ props }">
-      <v-btn color="primary base100--text theme--light" v-bind="props">
+      <v-btn :disabled="isError" color="primary base100--text theme--light" v-bind="props">
         Yes Please
       </v-btn>
     </template>
@@ -60,7 +62,8 @@ function closeDialog() {
         </v-card-title>
         <v-card-text>
           <p class="my-4">
-            Please help us add the missing information for below field
+            Please help us by finding the missing information for the field
+            below
           </p>
 
           <v-row>
@@ -81,7 +84,10 @@ function closeDialog() {
               :description="data.description"
             ></SingleSelect>
             <MultipleSelect
-              v-if="inputOptionsArray?.length > 0"
+              v-if="
+                inputOptionsArray?.length > 0 &&
+                missingFieldName !== 'tool_type'
+              "
               v-model="missingFieldValue"
               :missingFieldName="data.missingFieldName"
               :inputOptions="inputOptionsArray"
@@ -92,14 +98,14 @@ function closeDialog() {
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue-darken-1" variant="text" @click="closeDialog">
-            Close
+            Cancel
           </v-btn>
           <v-btn
             color="blue-darken-1"
             variant="text"
             @click="postUserContribution"
           >
-            Save
+            Submit
           </v-btn>
         </v-card-actions>
       </v-card>

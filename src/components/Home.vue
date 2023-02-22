@@ -105,17 +105,17 @@ function getNextTask() {
             </v-row>
           </v-card-text>
           <v-card-action
-            class="d-flex justify-center justify-space-around flex-row"
+            class="d-flex align-center mb-3 justify-space-around flex-row"
           >
             <UserContribution
-              class="my-2"
               :description="currentTask?.field?.description"
               :inputOptions="currentTask?.field?.input_options"
               :missingFieldName="currentTask?.field?.name"
               :toolName="currentTask?.tool?.name"
               :taskId="currentTask?.id"
+              :isError="isError"
             ></UserContribution>
-            <v-btn @click="getNextTask" class="my-2" :disabled="isError"
+            <v-btn @click="getNextTask" :disabled="isError"
               >Skip to Next</v-btn
             >
           </v-card-action>

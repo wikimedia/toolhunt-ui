@@ -6,7 +6,7 @@ const props = defineProps({
   missingFieldName: String,
   inputOptions: Array,
   description: String,
-  modelValue: String,
+  modelValue: Array,
 });
 
 const emit = defineEmits(["update:modelValue"]);
