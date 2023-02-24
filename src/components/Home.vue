@@ -1,6 +1,8 @@
 <script setup>
 import { defineProps } from "vue";
 import { ref, watchEffect } from "vue";
+import UserContributionForm from "./UserContributionForm.vue";
+
 const props = defineProps({
   tasks: Array,
   isError: Boolean,
@@ -101,8 +103,18 @@ function getNextTask() {
                 </v-table>
               </v-col>
             </v-row>
+            <v-row>
+              <UserContributionForm
+                :description="currentTask?.field?.description"
+                :inputOptions="currentTask?.field?.input_options"
+                :missingFieldName="currentTask?.field?.name"
+                :toolName="currentTask?.tool?.name"
+                :taskId="currentTask?.id"
+                :isError="isError"
+              ></UserContributionForm>
+            </v-row>
           </v-card-text>
-          <v-card-action
+          <!-- <v-card-action
             class="d-flex justify-center justify-space-around flex-row"
           >
             <v-btn
@@ -114,7 +126,7 @@ function getNextTask() {
             <v-btn @click="getNextTask" class="my-2" :disabled="isError"
               >Skip to Next</v-btn
             >
-          </v-card-action>
+          </v-card-action> -->
         </v-card>
       </v-col>
     </v-row>
