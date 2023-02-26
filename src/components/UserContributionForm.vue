@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from "vue";
 import { defineProps } from "vue";
+import { recordUserContribution } from "../stores/api.js";
 
 const data = defineProps({
   description: String,
@@ -30,7 +31,8 @@ const submit = async () => {
   };
 
   try {
-    await recordUserContribution(data.taskId, contributionRecord);
+    const res = await recordUserContribution(data.taskId, contributionRecord);
+    alert(res)
   } catch (error) {
     console.log(error);
   } finally {

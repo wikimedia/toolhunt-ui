@@ -58,7 +58,7 @@ function getNextTask() {
                   Please click on the
                   <strong
                     ><span class="bg primary theme--light"
-                      >Yes Please</span
+                      >Submit</span
                     ></strong
                   >
                   button to add the missing fields and incomplete information.
@@ -93,7 +93,11 @@ function getNextTask() {
                     </tr>
                     <tr>
                       <td>Url</td>
-                      <td>{{ currentTask?.tool?.url }}</td>
+                      <td>
+                        <a :href="currentTask?.tool?.url">
+                          {{ currentTask?.tool?.url }}
+                        </a>
+                      </td>
                     </tr>
                     <tr>
                       <td>Missing Field Name</td>
