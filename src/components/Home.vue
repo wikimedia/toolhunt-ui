@@ -7,7 +7,7 @@ const props = defineProps({
   tasks: Array,
   isError: Boolean,
 });
-const currentTaskIndex = ref(1);
+const currentTaskIndex = ref(0);
 const currentTask = ref(null);
 
 watchEffect(() => {
@@ -57,9 +57,7 @@ function getNextTask() {
                 <p>
                   Please click on the
                   <strong
-                    ><span class="bg primary theme--light"
-                      >Submit</span
-                    ></strong
+                    ><span class="bg primary theme--light">Submit</span></strong
                   >
                   button to add the missing fields and incomplete information.
                 </p>
