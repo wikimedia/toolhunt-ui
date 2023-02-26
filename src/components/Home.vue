@@ -7,7 +7,7 @@ const props = defineProps({
   tasks: Array,
   isError: Boolean,
 });
-const currentTaskIndex = ref(0);
+const currentTaskIndex = ref(1);
 const currentTask = ref(null);
 
 watchEffect(() => {
@@ -111,6 +111,7 @@ function getNextTask() {
                 :toolName="currentTask?.tool?.name"
                 :taskId="currentTask?.id"
                 :isError="isError"
+                :getNextTask="getNextTask"
               ></UserContributionForm>
             </v-row>
           </v-card-text>

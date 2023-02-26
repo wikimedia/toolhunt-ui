@@ -1,6 +1,5 @@
 <script setup>
 import { ref, computed } from "vue";
-import { useField, useForm } from "vee-validate";
 import { defineProps } from "vue";
 
 const data = defineProps({
@@ -10,6 +9,7 @@ const data = defineProps({
   toolName: String,
   taskId: Number,
   isError: Boolean,
+  getNextTask: Function,
 });
 
 const inputOptionsArray = computed(() => {
@@ -18,82 +18,109 @@ const inputOptionsArray = computed(() => {
     : [];
 });
 
-const validationSchema = {
-  name(value) {
-    if (value?.length >= 2) return true;
+const missingFieldValue = ref(null);
+const errorMessage = ref("");
 
-    return "Name needs to be at least 2 characters.";
-  },
-  // phone (value) {
-  //   if (value?.length > 9 && /[0-9-]+/.test(value)) return true
+const submit = async () => {
+  const fieldValue = missingFieldValue.value;
+  const contributionRecord = {
+    value: Array.isArray(fieldValue) ? fieldValue.join() : fieldValue,
+    field: data.missingFieldName,
+    tool: data.toolName,
+  };
 
-  //   return 'Phone number needs to be at least 9 digits.'
-  // },
-  // email (value) {
-  //   if (/^[a-z.-]+@[a-z.-]+\.[a-z]+$/i.test(value)) return true
-
-  //   return 'Must be a valid e-mail.'
-  // },
-  select(value) {
-    if (value) return true;
-
-    return "Select an item.";
-  },
+  try {
+    await recordUserContribution(data.taskId, contributionRecord);
+  } catch (error) {
+    console.log(error);
+  } finally {
+    missingFieldValue.value = null;
+  }
 };
 
-const { handleSubmit, handleReset } = useForm({ validationSchema });
+async function postUserContribution() {
+  if (missingFieldValue.value.length > 0) {
+    const contributionRecord = {
+      value: Array.isArray(missingFieldValue.value)
+        ? missingFieldValue.value.join()
+        : missingFieldValue.value,
+      field: data.missingFieldName,
+      tool: data.toolName,
+    };
 
-const name = useField("name");
-const select = useField("select");
+    try {
+      await recordUserContribution(data.taskId, contributionRecord);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      dialog.value = false;
+      missingFieldValue.value = null;
+    }
+  }
+}
 
-const submit = handleSubmit((values) => {
-  console.log("whaat");
-  alert(JSON.stringify(values, null, 2));
-});
+function skipToNext() {
+  missingFieldValue.value = null;
+  data.getNextTask();
+}
 </script>
 
 <template>
   <v-container>
     <v-row>
-      <v-col cols="8">
+      <v-col cols="12">
+        <p class="text-h6" >{{ description }}</p>
         <form @submit.prevent="submit">
-          <v-text-field
-            v-if="!data?.inputOptions"
-            v-model="name.value.value"
-            :label="this.missingFieldName"
-            :error-messages="name.errorMessage.value"
-            key="text-field"
-          ></v-text-field>
+          <v-row class="d-flex align-center justify-center">
+            <v-col cols="8" class="d-flex align-center justify-center">
+              <v-text-field
+                v-if="!data?.inputOptions"
+                v-model="missingFieldValue"
+                :label="this.missingFieldName"
+                :error-messages="errorMessage.value"
+                key="text-field"
+              ></v-text-field>
 
-          <v-select
-            v-if="
-              inputOptionsArray?.length > 0 && missingFieldName === 'tool_type'
-            "
-            v-model="select.value.value"
-            :error-messages="select.errorMessage.value"
-            item-title="value"
-            item-value="key"
-            :items="inputOptionsArray"
-            :label="this.missingFieldName"
-            key="single-select"
-          ></v-select>
+              <v-select
+                v-if="
+                  inputOptionsArray?.length > 0 &&
+                  missingFieldName === 'tool_type'
+                "
+                v-model="missingFieldValue"
+                :error-messages="errorMessage.value"
+                item-title="value"
+                item-value="key"
+                :items="inputOptionsArray"
+                :label="this.missingFieldName"
+              ></v-select>
 
-          <v-select
-            v-if="
-              inputOptionsArray?.length > 0 && missingFieldName !== 'tool_type'
-            "
-            v-model="select.value.value"
-            :error-messages="select.errorMessage.value"
-            item-title="value"
-            item-value="key"
-            :items="inputOptionsArray"
-            :label="this.missingFieldName"
-            multiple
-            key="multiple-select"
-          ></v-select>
-
-          <v-btn class="me-4" type="submit">submit</v-btn>
-          <v-btn @click="handleReset">clear</v-btn>
+              <v-select
+                v-if="
+                  inputOptionsArray?.length > 0 &&
+                  missingFieldName !== 'tool_type'
+                "
+                v-model="missingFieldValue"
+                :error-messages="errorMessage.value"
+                item-title="value"
+                item-value="key"
+                :items="inputOptionsArray"
+                :label="this.missingFieldName"
+                multiple
+              ></v-select>
+            </v-col>
+            <v-col cols="4" class="d-flex align-center justify-center mb-4">
+              <v-btn class="px-10 bg-primary rounded-pill me-4" type="submit"
+                >submit</v-btn
+              >
+              <v-btn
+                class="rounded-pill me-4"
+                variant="outlined"
+                color="primary"
+                @click="skipToNext"
+                >Skip to Next</v-btn
+              >
+            </v-col>
+          </v-row>
         </form>
       </v-col>
     </v-row>
