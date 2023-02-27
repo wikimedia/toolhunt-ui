@@ -1,12 +1,14 @@
 <script setup>
-import { defineProps } from "vue";
-import { ref, watchEffect } from "vue";
+import { ref, defineProps, watchEffect } from "vue";
+import { getLoggedInUser } from "..//stores/api.js";
 const props = defineProps({
   tasks: Array,
   isError: Boolean,
 });
 const currentTaskIndex = ref(0);
 const currentTask = ref(null);
+
+watchEffect(async () => await getLoggedInUser());
 
 watchEffect(() => {
   currentTask.value = props.tasks[currentTaskIndex.value];
