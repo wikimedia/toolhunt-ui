@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watchEffect } from "vue";
-import { isUserLoggedIn } from "..//stores/api.js";
+import { isUserLoggedIn, LogOut, LogIn } from "../stores/api.js";
 
 const toggleMenu = () => {
   document.querySelector(".mobile-nav").classList.toggle("mobile-nav-display");
@@ -48,26 +48,31 @@ watchEffect(async () => {
               ></i>
               <span>{{ currentUser }}</span>
             </v-list-item-title>
-            <v-list-item-title class="d.flex justify-space-between">
-              <i
-                aria-hidden="true"
-                class="v-icon notranslate mdi mdi-logout mr-4"
-              />
-              Log Out
+            <v-list-item-title class="d.flex justify-space-between logout">
+              <span @click="LogOut">
+                <i
+                  aria-hidden="true"
+                  class="v-icon notranslate mdi mdi-logout mr-4"
+                />
+                Log Out
+              </span>
             </v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
       <v-btn
         v-if="!currentUser"
-        class="ma-1 white--text v-btn v-btn--is-elevated bg-black theme--light v-size--default secondary"
-        ><span class="v-btn__content">
+        class="ma-1 white--text v-btn v-btn--is-elevated bg-black theme--light v-size--default secondary color-white"
+        @click="LogIn"
+      >
+        <span class="v-btn__content theme--light">
           Login
           <i
             aria-hidden="true"
             class="v-icon notranslate mdi mdi-login theme--light"
-          ></i></span
-      ></v-btn>
+          ></i>
+        </span>
+      </v-btn>
     </nav>
     <v-btn
       class="mobile-nav-btn"
@@ -163,5 +168,8 @@ header > .left-side img {
     display: none;
   }
 }
-</style>
+
+.logout:hover {
+  cursor: pointer;
 }
+</style>

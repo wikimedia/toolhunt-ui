@@ -29,17 +29,13 @@ export async function getAllTimeGreat() {
 }
 
 export async function getLoggedInUser() {
-  const res = await axios
-    .get(BASE_URL + "/api/user", { raw: true })
-    .catch(function (error) {
-      if (error.response.status == 401) {
-        localStorage.setItem("currentUser", null);
-      }
-    });
-
-  console.log(`What the data: ${res.data.username}`);
-  const username = res.data["username"];
-  localStorage.setItem("currentUser", username);
+  try {
+    const res = await axios.get(BASE_URL + "/api/user", { raw: true });
+    const username = res.data["username"];
+    localStorage.setItem("currentUser", username);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 export async function isUserLoggedIn() {
@@ -48,4 +44,21 @@ export async function isUserLoggedIn() {
     return currentUser;
   }
   return;
+}
+
+export async function LogIn() {
+  if (!localStorage.getItem("currentUser")) {
+    await getLoggedInUser();
+  }
+
+  if (!localStorage.getItem("currentUser")) {
+    window.open("http://localhost:8082/api/login");
+  }
+
+  location.reload();
+}
+
+export function LogOut() {
+  localStorage.removeItem("currentUser");
+  location.reload();
 }
