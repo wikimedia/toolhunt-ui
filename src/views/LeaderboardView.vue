@@ -5,13 +5,16 @@ import { getAllTimeGreat } from "../stores/api.js";
 
 const profileBaseUrl = ref("https://meta.wikimedia.org/wiki/User:");
 
-const last30DaysTopContributions = ref([
-  { user: "BDavis (WMF)", score: 32 },
-  { user: "Sage (Wiki Ed)", score: 22 },
-  { user: "Demo Unicorn", score: 20 },
-  { user: "NicoleLBee", score: 17 },
-  { user: "Hannah Waruguru", score: 12 },
-]);
+const last30DaysTopContributions = ref([]);
+const isError30Days = ref(false)
+watchEffect(async () => {
+  try {
+    last30DaysTopContributions.value = await getAllTimeGreat(true)
+  } catch(error) {
+    isError30Days.value = true
+    console.log(error)
+  }
+})
 
 const allTimeTopContributions = ref([]);
 const isError = ref(false)
