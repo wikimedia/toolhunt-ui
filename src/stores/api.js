@@ -21,8 +21,9 @@ export async function getMyContributions(userName) {
   return res.data;
 }
 
-export async function getAllTimeGreat() {
-  const res = await axios.get(BASE_URL + "/api/contributions/top-scores", {
+export async function getAllTimeGreat(lastThirtyDays=false) {
+  const url = lastThirtyDays ? "/api/contributions/top-scores?since=30" : "/api/contributions/top-scores"
+  const res = await axios.get(BASE_URL + url, {
     raw: true,
   });
   return res.data;
