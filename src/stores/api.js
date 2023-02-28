@@ -21,8 +21,10 @@ export async function getMyContributions(userName) {
   return res.data;
 }
 
-export async function getAllTimeGreat(lastThirtyDays=false) {
-  const url = lastThirtyDays ? "/api/contributions/top-scores?since=30" : "/api/contributions/top-scores"
+export async function getAllTimeGreat(lastThirtyDays = false) {
+  const url = lastThirtyDays
+    ? "/api/contributions/top-scores?since=30"
+    : "/api/contributions/top-scores";
   const res = await axios.get(BASE_URL + url, {
     raw: true,
   });
@@ -31,35 +33,16 @@ export async function getAllTimeGreat(lastThirtyDays=false) {
 
 export async function getLoggedInUser() {
   try {
-    const res = await axios.get(BASE_URL + "/api/user", { raw: true });
-    const username = res.data["username"];
-    localStorage.setItem("currentUser", username);
+    let response = await axios.get(BASE_URL + "/api/user", { raw: true });
+    if (response.data["username"]) {
+      return response.data["username"];
+    } else return;
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
-}
-
-export async function isUserLoggedIn() {
-  const currentUser = localStorage.getItem("currentUser");
-  if (currentUser) {
-    return currentUser;
-  }
-  return;
-}
-
-export async function LogIn() {
-  if (!localStorage.getItem("currentUser")) {
-    await getLoggedInUser();
-  }
-
-  if (!localStorage.getItem("currentUser")) {
-    window.open("http://localhost:8082/api/login");
-  }
-
-  location.reload();
 }
 
 export function LogOut() {
+  window.location.href = "http://localhost:8082/api/logout";
   localStorage.removeItem("currentUser");
-  location.reload();
 }

@@ -1,14 +1,15 @@
 <script setup>
-import { ref, watchEffect } from "vue";
-import { isUserLoggedIn, LogOut, LogIn } from "../stores/api.js";
+import { ref, onMounted } from "vue";
+import { getLoggedInUser, LogOut } from "../stores/api.js";
 
 const toggleMenu = () => {
   document.querySelector(".mobile-nav").classList.toggle("mobile-nav-display");
 };
 
 const currentUser = ref(null);
-watchEffect(async () => {
-  currentUser.value = await isUserLoggedIn();
+onMounted(async () => {
+  let username = await getLoggedInUser();
+  currentUser.value = username;
 });
 </script>
 
@@ -63,7 +64,7 @@ watchEffect(async () => {
       <v-btn
         v-if="!currentUser"
         class="ma-1 white--text v-btn v-btn--is-elevated bg-black theme--light v-size--default secondary color-white"
-        @click="LogIn"
+        href="/api/login"
       >
         <span class="v-btn__content theme--light">
           Login
