@@ -53,13 +53,13 @@ export async function LogIn() {
   }
 
   if (!localStorage.getItem("currentUser")) {
-    window.open("http://localhost:8082/api/login");
+    window.location.href("http://localhost:8082/api/login");
   }
 
   location.reload();
 }
 
 export function LogOut() {
+  window.location.href = "http://localhost:8082/api/logout";
   localStorage.removeItem("currentUser");
-  location.reload();
 }
