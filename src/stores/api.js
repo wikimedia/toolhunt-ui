@@ -44,5 +44,4 @@ export async function getLoggedInUser() {
 
 export function LogOut() {
   window.location.href = "http://localhost:8082/api/logout";
-  localStorage.removeItem("currentUser");
 }
