@@ -8,8 +8,6 @@ const props = defineProps({
 const currentTaskIndex = ref(0);
 const currentTask = ref(null);
 
-watchEffect(async () => await getLoggedInUser());
-
 watchEffect(() => {
   currentTask.value = props.tasks[currentTaskIndex.value];
 });
