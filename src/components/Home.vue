@@ -25,7 +25,7 @@ function getNextTask() {
 <template>
   <v-container
     class="d-flex align-center"
-    style="gap: 16px; max-width: 600px; margin-inline: auto"
+    style="gap: 16px; max-width: 600px; margin-inline: auto;"
     fluid
   >
     <v-img
@@ -117,19 +117,6 @@ function getNextTask() {
               ></UserContributionForm>
             </v-row>
           </v-card-text>
-          <!-- <v-card-action
-            class="d-flex justify-center justify-space-around flex-row"
-          >
-            <v-btn
-              class="my-2"
-              color="primary base100--text theme--light"
-              :disabled="isError"
-              >Yes Please</v-btn
-            >
-            <v-btn @click="getNextTask" class="my-2" :disabled="isError"
-              >Skip to Next</v-btn
-            >
-          </v-card-action> -->
         </v-card>
       </v-col>
     </v-row>

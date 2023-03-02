@@ -26,9 +26,8 @@ export async function getAllTimeGreat(lastThirtyDays=false) {
 }
 
 export async function recordUserContribution(taskId, contributionRecord) {
-    const res = await axios.put(
+    return await axios.put(
       BASE_URL + "/api/tasks/" + taskId,
       contributionRecord
     );
-    return res.data;
   }
