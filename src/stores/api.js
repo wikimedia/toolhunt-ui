@@ -41,7 +41,3 @@ export async function getLoggedInUser() {
     console.log(error.message);
   }
 }
-
-export function LogOut() {
-  window.location.href = "http://localhost:8082/api/logout";
-}

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { getLoggedInUser, LogOut } from "../stores/api.js";
+import { getLoggedInUser } from "../stores/api.js";
 
 const toggleMenu = () => {
   document.querySelector(".mobile-nav").classList.toggle("mobile-nav-display");
@@ -50,12 +50,17 @@ onMounted(async () => {
               <span>{{ currentUser }}</span>
             </v-list-item-title>
             <v-list-item-title class="d.flex justify-space-between logout">
-              <span @click="LogOut">
+              <span>
                 <i
                   aria-hidden="true"
                   class="v-icon notranslate mdi mdi-logout mr-4"
                 />
-                Log Out
+                <a
+                  href="/api/logout"
+                  class="text-decoration-none"
+                  style="color: #000000"
+                  >Log Out</a
+                >
               </span>
             </v-list-item-title>
           </v-list-item>
@@ -64,10 +69,14 @@ onMounted(async () => {
       <v-btn
         v-if="!currentUser"
         class="ma-1 white--text v-btn v-btn--is-elevated bg-black theme--light v-size--default secondary color-white"
-        href="/api/login"
       >
         <span class="v-btn__content theme--light">
-          Login
+          <a
+            href="/api/login"
+            class="text-decoration-none"
+            style="color: #ffffff"
+            >Login</a
+          >
           <i
             aria-hidden="true"
             class="v-icon notranslate mdi mdi-login theme--light"
