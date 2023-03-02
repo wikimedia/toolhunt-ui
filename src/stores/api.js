@@ -24,3 +24,18 @@ export async function getAllTimeGreat(lastThirtyDays=false) {
   });
   return res.data;
 }
+
+export async function getContributionsMetrics() {
+  const res = await axios.get(BASE_URL + '/api/metrics/contributions', {raw:true})
+    return res.data
+}
+
+export async function getToolsMetrics() {
+  const res = await axios.get(BASE_URL + '/api/metrics/tools', {raw:true})
+    return res.data
+}
+
+export async function getUserMetrics() {
+  const res = await axios.get(BASE_URL + '/api/metrics/user', {raw:true})
+    return res.data
+}
