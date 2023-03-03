@@ -1,6 +1,8 @@
 <script setup>
 import { ref, defineProps, watchEffect } from "vue";
 import { getLoggedInUser } from "..//stores/api.js";
+import UserContributionForm from "./UserContributionForm.vue";
+
 const props = defineProps({
   tasks: Array,
   isError: Boolean,
@@ -23,7 +25,7 @@ function getNextTask() {
 <template>
   <v-container
     class="d-flex align-center"
-    style="gap: 16px; max-width: 600px; margin-inline: auto"
+    style="gap: 16px; max-width: 600px; margin-inline: auto;"
     fluid
   >
     <v-img
@@ -55,9 +57,7 @@ function getNextTask() {
                 <p>
                   Please click on the
                   <strong
-                    ><span class="bg primary theme--light"
-                      >Yes Please</span
-                    ></strong
+                    ><span class="bg primary theme--light">Submit</span></strong
                   >
                   button to add the missing fields and incomplete information.
                 </p>
@@ -91,7 +91,11 @@ function getNextTask() {
                     </tr>
                     <tr>
                       <td>Url</td>
-                      <td>{{ currentTask?.tool?.url }}</td>
+                      <td>
+                        <a :href="currentTask?.tool?.url">
+                          {{ currentTask?.tool?.url }}
+                        </a>
+                      </td>
                     </tr>
                     <tr>
                       <td>Missing Field Name</td>
@@ -101,20 +105,18 @@ function getNextTask() {
                 </v-table>
               </v-col>
             </v-row>
+            <v-row>
+              <UserContributionForm
+                :description="currentTask?.field?.description"
+                :inputOptions="currentTask?.field?.input_options"
+                :missingFieldName="currentTask?.field?.name"
+                :toolName="currentTask?.tool?.name"
+                :taskId="currentTask?.id"
+                :isError="isError"
+                :getNextTask="getNextTask"
+              ></UserContributionForm>
+            </v-row>
           </v-card-text>
-          <v-card-action
-            class="d-flex justify-center justify-space-around flex-row"
-          >
-            <v-btn
-              class="my-2"
-              color="primary base100--text theme--light"
-              :disabled="isError"
-              >Yes Please</v-btn
-            >
-            <v-btn @click="getNextTask" class="my-2" :disabled="isError"
-              >Skip to Next</v-btn
-            >
-          </v-card-action>
         </v-card>
       </v-col>
     </v-row>
