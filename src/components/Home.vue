@@ -1,6 +1,6 @@
 <script setup>
-import { defineProps } from "vue";
-import { ref, watchEffect } from "vue";
+import { ref, defineProps, watchEffect } from "vue";
+import { getLoggedInUser } from "..//stores/api.js";
 const props = defineProps({
   tasks: Array,
   isError: Boolean,
