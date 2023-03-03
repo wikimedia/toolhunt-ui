@@ -31,6 +31,13 @@ export async function getAllTimeGreat(lastThirtyDays = false) {
   return res.data;
 }
 
+export async function recordUserContribution(taskId, contributionRecord) {
+    return await axios.put(
+      BASE_URL + "/api/tasks/" + taskId,
+      contributionRecord
+    );
+  }
+
 export async function getLoggedInUser() {
   try {
     let response = await axios.get(BASE_URL + "/api/user", { raw: true });
