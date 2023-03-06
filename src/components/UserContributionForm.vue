@@ -11,6 +11,7 @@ const data = defineProps({
   taskId: Number,
   isError: Boolean,
   getNextTask: Function,
+  currentUser: String,
 });
 
 const inputOptionsArray = computed(() => {
@@ -28,6 +29,7 @@ const submit = async () => {
     value: Array.isArray(fieldValue) ? fieldValue.join() : fieldValue,
     field: data.missingFieldName,
     tool: data.toolName,
+    user: data.currentUser,
   };
 
   try {
