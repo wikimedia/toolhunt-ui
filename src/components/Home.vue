@@ -1,11 +1,11 @@
 <script setup>
 import { ref, defineProps, watchEffect } from "vue";
-import { getLoggedInUser } from "..//stores/api.js";
 import UserContributionForm from "./UserContributionForm.vue";
 
 const props = defineProps({
   tasks: Array,
   isError: Boolean,
+  currentUser: String,
 });
 const currentTaskIndex = ref(0);
 const currentTask = ref(null);
@@ -25,7 +25,7 @@ function getNextTask() {
 <template>
   <v-container
     class="d-flex align-center"
-    style="gap: 16px; max-width: 600px; margin-inline: auto;"
+    style="gap: 16px; max-width: 600px; margin-inline: auto"
     fluid
   >
     <v-img
@@ -114,6 +114,7 @@ function getNextTask() {
                 :taskId="currentTask?.id"
                 :isError="isError"
                 :getNextTask="getNextTask"
+                :currentUser="currentUser"
               ></UserContributionForm>
             </v-row>
           </v-card-text>
