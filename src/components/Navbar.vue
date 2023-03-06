@@ -1,15 +1,9 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { getLoggedInUser } from "../stores/api.js";
-
 const toggleMenu = () => {
   document.querySelector(".mobile-nav").classList.toggle("mobile-nav-display");
 };
-
-const currentUser = ref(null);
-onMounted(async () => {
-  let username = await getLoggedInUser();
-  currentUser.value = username;
+const props = defineProps({
+  currentUser: String,
 });
 </script>
 
@@ -30,7 +24,7 @@ onMounted(async () => {
       <v-btn to="/dashboard" flat>Dashboard</v-btn>
       <v-btn to="/leaderboard" flat>Leaderboard</v-btn>
 
-      <v-menu transition="slide-y-transition" v-if="currentUser">
+      <v-menu transition="slide-y-transition" v-if="props.currentUser">
         <template v-slot:activator="{ props }">
           <v-btn
             class="login-btn"
@@ -47,7 +41,7 @@ onMounted(async () => {
                 aria-hidden="true"
                 class="v-icon notranslate mdi mdi-account-circle mr-4"
               ></i>
-              <span>{{ currentUser }}</span>
+              <span>{{ props.currentUser }}</span>
             </v-list-item-title>
             <v-list-item-title class="d.flex justify-space-between logout">
               <span>
@@ -67,7 +61,7 @@ onMounted(async () => {
         </v-list>
       </v-menu>
       <v-btn
-        v-if="!currentUser"
+        v-if="!props.currentUser"
         class="ma-1 white--text v-btn v-btn--is-elevated bg-black theme--light v-size--default secondary color-white"
       >
         <span class="v-btn__content theme--light">
