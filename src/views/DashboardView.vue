@@ -6,7 +6,7 @@ import {
   getMyContributions,
   getContributionsMetrics,
   getToolsMetrics,
-  getUserMetrics
+  getUserMetrics,
 } from "../stores/api.js";
 
 function calcPercentMissing(numberMissing, numberTotal) {
@@ -63,11 +63,13 @@ watchEffect(async () => {
 
 const userMetrics = ref({});
 watchEffect(async () => {
-  try {
-    userMetrics.value = await getUserMetrics();
-  } catch (error) {
-    isError.value = true;
-    console.log(error);
+  if (props.currentUser) {
+    try {
+      userMetrics.value = await getUserMetrics();
+    } catch (error) {
+      isError.value = true;
+      console.log(error);
+    }
   }
 });
 </script>
@@ -114,11 +116,13 @@ watchEffect(async () => {
             <v-card-text>
               <v-table>
                 <tbody>
-                  <tr>
+                  <tr v-if="userMetrics.value">
                     <td>My contributions in the last 30 days:</td>
-                    <td>{{ userMetrics.My_contributions_in_the_past_30_days }}</td>
+                    <td>
+                      {{ userMetrics.My_contributions_in_the_past_30_days }}
+                    </td>
                   </tr>
-                  <tr>
+                  <tr v-if="userMetrics.value">
                     <td>My total contributions:</td>
                     <td>{{ userMetrics.My_total_contributions }}</td>
                   </tr>
@@ -153,7 +157,11 @@ watchEffect(async () => {
                   </tr>
                   <tr>
                     <td>Number of tools with missing data:</td>
-                    <td>{{ toolsMetrics.Number_of_tools_with_incomplete_information }}</td>
+                    <td>
+                      {{
+                        toolsMetrics.Number_of_tools_with_incomplete_information
+                      }}
+                    </td>
                   </tr>
                   <tr>
                     <td>Percentage of tools with missing data:</td>
