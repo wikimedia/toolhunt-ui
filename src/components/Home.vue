@@ -25,7 +25,7 @@ function getNextTask() {
 <template>
   <v-container
     class="d-flex align-center"
-    style="gap: 16px; max-width: 600px; margin-inline: auto"
+    style="gap: 16px; max-width: 600px; margin-inline: auto;"
     fluid
   >
     <v-img
