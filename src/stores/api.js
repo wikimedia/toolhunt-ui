@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:8082";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL
 
 export async function getTasks() {
   const res = await axios.get(BASE_URL + "/api/tasks", { raw: true });
@@ -32,11 +32,12 @@ export async function getAllTimeGreat(lastThirtyDays = false) {
 }
 
 export async function recordUserContribution(taskId, contributionRecord) {
-    return await axios.put(
-      BASE_URL + "/api/tasks/" + taskId,
-      contributionRecord
-    );
-  }
+  let response = await axios.put(
+    BASE_URL + "/api/tasks/" + taskId,
+    contributionRecord
+  );
+  return response;
+}
 
 export async function getLoggedInUser() {
   try {

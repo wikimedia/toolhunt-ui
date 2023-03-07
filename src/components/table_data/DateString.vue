@@ -7,13 +7,13 @@
 <script>
 export default {
   props: {
-    dateString: Number
+    dateString: String,
   },
   computed: {
-    localeDateString: function() {
+    localeDateString: function () {
       let dateObj = new Date(this.dateString);
       return dateObj.toLocaleDateString();
-    }
-  }
-}
+    },
+  },
+};
 </script>
