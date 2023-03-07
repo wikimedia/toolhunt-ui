@@ -23,7 +23,7 @@ watchEffect(async () => {
       console.log(error);
     }
   }
-});
+})
 
 const globalContributions = ref([]);
 watchEffect(async () => {
