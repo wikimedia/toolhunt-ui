@@ -11,6 +11,7 @@ const data = defineProps({
   taskId: Number,
   isError: Boolean,
   getNextTask: Function,
+  currentUser: String,
 });
 
 const inputOptionsArray = computed(() => {
@@ -28,7 +29,15 @@ const submit = async () => {
     value: Array.isArray(fieldValue) ? fieldValue.join() : fieldValue,
     field: data.missingFieldName,
     tool: data.toolName,
+    user: data.currentUser,
   };
+
+  if (!contributionRecord.user) {
+    alert(
+      "You must be logged in to submit a task. Please click on the Login button."
+    );
+    return;
+  }
 
   try {
     await recordUserContribution(data.taskId, contributionRecord)
@@ -38,16 +47,16 @@ const submit = async () => {
       .catch((error) => {
         if (error.response.status === 409) {
           alert(
-            "Apologies someone else has completed this task, please skip to next to try another one"
+            "Someone else has completed this task.  Please click 'skip to next' to try another one."
           );
         }
         if (error.response.status === 401) {
           alert(
-            "You must be loggedIn to submit a task. Please click on the LogIn button"
+            "You must be logged in to submit a task. Please click on the Login button."
           );
         }
         alert(
-          "Apologies there was a problem sending your request. Please try again later"
+          "There was a problem sending your request. Please try again later."
         );
       });
   } catch (error) {

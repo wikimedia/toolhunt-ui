@@ -7,16 +7,21 @@ function calcPercentMissing(numberMissing, numberTotal) {
   return ((numberMissing / numberTotal) * 100).toFixed(2);
 }
 
-const userName = ref("Hannah Waruguru");
+const props = defineProps({
+  currentUser: String,
+});
+
 const userContributions = ref([]);
 const isError = ref(false);
 
 watchEffect(async () => {
-  try {
-    userContributions.value = await getMyContributions(userName.value)
-  } catch(error) {
-    isError.value = true
-    console.log(error)
+  if (props.currentUser) {
+    try {
+      userContributions.value = await getMyContributions(props.currentUser);
+    } catch (error) {
+      isError.value = true;
+      console.log(error);
+    }
   }
 })
 
@@ -50,12 +55,19 @@ const userStats = ref({
     fluid
   >
     <v-img src="src/assets/logo-main.svg" height="75" width="75" alt=""></v-img>
-    <div>
-      <h1>Welcome, {{ userName }}!</h1>
+    <div v-if="props.currentUser">
+      <h1>Welcome, {{ props.currentUser }}!</h1>
       <p class="d-none d-sm-block">
         Here on the Dashboard, you can view your latest contributions and check
         out global contributions and statistics about Toolhub and the Toolhunt
         project.
+      </p>
+    </div>
+    <div v-else>
+      <p class="d-none d-sm-block">
+        Here on the Dashboard, you can check out global contributions and
+        statistics about Toolhub and the Toolhunt project. Login to see your
+        personal data.
       </p>
     </div>
   </v-container>

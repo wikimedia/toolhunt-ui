@@ -1,11 +1,11 @@
 <script setup>
 import { ref, defineProps, watchEffect } from "vue";
-import { getLoggedInUser } from "..//stores/api.js";
 import UserContributionForm from "./UserContributionForm.vue";
 
 const props = defineProps({
   tasks: Array,
   isError: Boolean,
+  currentUser: String,
 });
 const currentTaskIndex = ref(0);
 const currentTask = ref(null);
@@ -114,6 +114,7 @@ function getNextTask() {
                 :taskId="currentTask?.id"
                 :isError="isError"
                 :getNextTask="getNextTask"
+                :currentUser="currentUser"
               ></UserContributionForm>
             </v-row>
           </v-card-text>

@@ -9,8 +9,9 @@ const router = createRouter({
       name: 'home',
       component: HomeView,
       meta: {
-        title: "Home | Toolhunt"
-      }
+        title: "Home | Toolhunt",
+      },
+      props: true,
     },
     {
       path: '/dashboard',
@@ -20,17 +21,19 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/DashboardView.vue'),
       meta: {
-        title: "Dashboard | Toolhunt"
-      }
+        title: "Dashboard | Toolhunt",
+      },
+      props: true,
     },
     {
       path: '/leaderboard',
       name: 'leaderboard',
       component: () => import('../views/LeaderboardView.vue'),
       meta: {
-        title: "Leaderboard | Toolhunt"
-      }
-    }
+        title: "Leaderboard | Toolhunt",
+      },
+      props: true,
+    },
   ],
 })
 
