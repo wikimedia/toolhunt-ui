@@ -24,6 +24,7 @@ const inputOptionsArray = computed(() => {
 });
 
 const missingFieldValue = ref(null);
+const form = ref(null);
 const errorMessage = ref("");
 
 const submit = async () => {
@@ -34,45 +35,46 @@ const submit = async () => {
     return;
   }
 
-  // validate missingFieldValue
-
   const fieldValue = missingFieldValue.value;
-  const contributionRecord = {
-    value: Array.isArray(fieldValue) ? fieldValue.join() : fieldValue,
-    field: data.missingFieldName,
-    tool: data.toolName,
-    user: data.currentUser,
-  };
+  const validationResult = missingFieldRules.value[0](fieldValue);
+  if (validationResult === true) {
+    const contributionRecord = {
+      value: Array.isArray(fieldValue) ? fieldValue.join() : fieldValue,
+      field: data.missingFieldName,
+      tool: data.toolName,
+      user: data.currentUser,
+    };
 
-  try {
-    await recordUserContribution(data.taskId, contributionRecord)
-      .then((res) => {
-        alert(res.data);
-      })
-      .catch((error) => {
-        if (error.response.status === 409) {
+    try {
+      await recordUserContribution(data.taskId, contributionRecord)
+        .then((res) => {
+          alert(res.data);
+        })
+        .catch((error) => {
+          if (error.response.status === 409) {
+            alert(
+              "Someone else has completed this task.  Please click 'skip to next' to try another one."
+            );
+          }
+          if (error.response.status === 401) {
+            alert(
+              "You must be logged in to submit a task. Please click on the Login button."
+            );
+          }
           alert(
-            "Someone else has completed this task.  Please click 'skip to next' to try another one."
+            "There was a problem sending your request. Please try again later."
           );
-        }
-        if (error.response.status === 401) {
-          alert(
-            "You must be logged in to submit a task. Please click on the Login button."
-          );
-        }
-        alert(
-          "There was a problem sending your request. Please try again later."
-        );
-      });
-  } catch (error) {
-    console.log(error);
-  } finally {
-    missingFieldValue.value = null;
-  }
+        });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      missingFieldValue.value = null;
+    }
+  } else alert(validationResult);
 };
 
 function skipToNext() {
-  missingFieldValue.value = null;
+  form.value.reset();
   data.getNextTask();
 }
 
@@ -148,6 +150,7 @@ const missingFieldRules = computed(() => [
                 </v-col>
                 <v-col cols="4" class="d-flex align-center justify-center mb-4">
                   <v-btn
+                    v-bind:disabled="missingFieldValue ? false : true"
                     class="px-10 bg-primary rounded-pill me-4"
                     type="submit"
                     >submit</v-btn
