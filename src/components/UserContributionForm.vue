@@ -3,6 +3,8 @@ import { ref, computed } from "vue";
 import { defineProps } from "vue";
 import { recordUserContribution } from "../stores/api.js";
 
+const RE_URL_VALID_BASIC = /^https?:\/\/[^\s]+$/;
+
 const data = defineProps({
   description: String,
   inputOptions: Object,
@@ -12,6 +14,7 @@ const data = defineProps({
   isError: Boolean,
   getNextTask: Function,
   currentUser: String,
+  pattern: String,
 });
 
 const inputOptionsArray = computed(() => {
@@ -24,6 +27,15 @@ const missingFieldValue = ref(null);
 const errorMessage = ref("");
 
 const submit = async () => {
+  if (!data.currentUser) {
+    alert(
+      "You must be logged in to submit a task. Please click on the Login button."
+    );
+    return;
+  }
+
+  // validate missingFieldValue
+
   const fieldValue = missingFieldValue.value;
   const contributionRecord = {
     value: Array.isArray(fieldValue) ? fieldValue.join() : fieldValue,
@@ -31,13 +43,6 @@ const submit = async () => {
     tool: data.toolName,
     user: data.currentUser,
   };
-
-  if (!contributionRecord.user) {
-    alert(
-      "You must be logged in to submit a task. Please click on the Login button."
-    );
-    return;
-  }
 
   try {
     await recordUserContribution(data.taskId, contributionRecord)
@@ -70,6 +75,29 @@ function skipToNext() {
   missingFieldValue.value = null;
   data.getNextTask();
 }
+
+const missingFieldRules = computed(() => [
+  (value) => {
+    if (data.pattern) {
+      const re = new RegExp(data.pattern);
+      if (re.test(value)) return true;
+      return `Field should follow this pattern:${data.pattern}`;
+    } else if (data.missingFieldName.includes("url")) {
+      if (!RE_URL_VALID_BASIC.test(value)) {
+        return "Field should be a valid URL";
+      }
+
+      try {
+        const url = new URL(value);
+        return true;
+      } catch (_) {
+        return "Field should be a valid URL";
+      }
+    }
+    // if given pattern is null and not url - pass validation
+    return true;
+  },
+]);
 </script>
 
 <template>
@@ -79,7 +107,7 @@ function skipToNext() {
         <v-card>
           <v-card-title>{{ description }}</v-card-title>
           <v-card-text>
-            <form @submit.prevent="submit">
+            <v-form ref="form" @submit.prevent="submit">
               <v-row class="d-flex align-center justify-center">
                 <v-col cols="8" class="d-flex align-center justify-center">
                   <v-text-field
@@ -88,6 +116,7 @@ function skipToNext() {
                     :label="this.missingFieldName"
                     :error-messages="errorMessage.value"
                     key="text-field"
+                    :rules="missingFieldRules"
                   ></v-text-field>
 
                   <v-select
@@ -132,7 +161,7 @@ function skipToNext() {
                   >
                 </v-col>
               </v-row>
-            </form></v-card-text
+            </v-form></v-card-text
           >
         </v-card>
       </v-col>
