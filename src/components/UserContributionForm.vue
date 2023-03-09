@@ -104,70 +104,72 @@ const missingFieldRules = computed(() => [
 
 <template>
   <v-container>
-    <v-row>
-      <v-col cols="12">
-        <v-card>
-          <v-card-title>{{ description }}</v-card-title>
-          <v-card-text>
-            <v-form ref="form" @submit.prevent="submit">
-              <v-row class="d-flex align-center justify-center">
-                <v-col cols="8" class="d-flex align-center justify-center">
-                  <v-text-field
-                    v-if="!data?.inputOptions"
-                    v-model="missingFieldValue"
-                    :label="this.missingFieldName"
-                    :error-messages="errorMessage.value"
-                    key="text-field"
-                    :rules="missingFieldRules"
-                  ></v-text-field>
-
-                  <v-select
-                    v-if="
-                      inputOptionsArray?.length > 0 &&
-                      missingFieldName === 'tool_type'
-                    "
-                    v-model="missingFieldValue"
-                    :error-messages="errorMessage.value"
-                    item-title="value"
-                    item-value="key"
-                    :items="inputOptionsArray"
-                    :label="this.missingFieldName"
-                  ></v-select>
-
-                  <v-select
-                    v-if="
-                      inputOptionsArray?.length > 0 &&
-                      missingFieldName !== 'tool_type'
-                    "
-                    v-model="missingFieldValue"
-                    :error-messages="errorMessage.value"
-                    item-title="value"
-                    item-value="key"
-                    :items="inputOptionsArray"
-                    :label="this.missingFieldName"
-                    multiple
-                  ></v-select>
-                </v-col>
-                <v-col cols="4" class="d-flex align-center justify-center mb-4">
-                  <v-btn
-                    v-bind:disabled="missingFieldValue ? false : true"
-                    class="px-10 bg-primary rounded-pill me-4"
-                    type="submit"
-                    >submit</v-btn
-                  >
-                  <v-btn
-                    class="rounded-pill me-4"
-                    variant="outlined"
-                    color="primary"
-                    @click="skipToNext"
-                    >Skip to Next</v-btn
-                  >
-                </v-col>
-              </v-row>
-            </v-form></v-card-text
+    <v-card class="d-flex flex-column">
+      <v-card-title class="text-wrap">{{ description }}</v-card-title>
+      <v-card-text>
+        <v-form ref="form" @submit.prevent="submit">
+          <v-row
+            cols="12"
+            class="d-flex flex-column flex-md-row justify-center"
           >
-        </v-card>
-      </v-col>
-    </v-row>
+            <v-col>
+              <v-text-field
+                v-if="!data?.inputOptions"
+                v-model="missingFieldValue"
+                :label="this.missingFieldName"
+                :error-messages="errorMessage.value"
+                key="text-field"
+                :rules="missingFieldRules"
+              ></v-text-field>
+              <v-select
+                v-if="
+                  inputOptionsArray?.length > 0 &&
+                  missingFieldName === 'tool_type'
+                "
+                v-model="missingFieldValue"
+                :error-messages="errorMessage.value"
+                item-title="value"
+                item-value="key"
+                :items="inputOptionsArray"
+                :label="this.missingFieldName"
+              ></v-select>
+              <v-select
+                v-if="
+                  inputOptionsArray?.length > 0 &&
+                  missingFieldName !== 'tool_type'
+                "
+                v-model="missingFieldValue"
+                :error-messages="errorMessage.value"
+                item-title="value"
+                item-value="key"
+                :items="inputOptionsArray"
+                :label="this.missingFieldName"
+                multiple
+              ></v-select>
+            </v-col>
+            <v-card-actions
+              class="d-flex flex-column flex-sm-row"
+              style="gap: 10px; margin-top: -20px"
+            >
+              <v-btn
+                v-bind:disabled="missingFieldValue ? false : true"
+                class="bg-primary rounded-pill"
+                type="submit"
+                style="width: 127px"
+                >submit</v-btn
+              >
+              <v-btn
+                class="rounded-pill"
+                variant="outlined"
+                color="primary"
+                style="width: 127px"
+                @click="skipToNext"
+                >Skip to Next</v-btn
+              >
+            </v-card-actions>
+          </v-row>
+        </v-form>
+      </v-card-text>
+    </v-card>
   </v-container>
 </template>
