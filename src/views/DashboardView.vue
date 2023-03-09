@@ -1,7 +1,13 @@
 <script setup>
 import ContributionTable from "../components/ContributionTable.vue";
-import { ref, watchEffect } from "vue";
-import { getLatestContributions, getMyContributions } from "../stores/api.js";
+import { ref, watchEffect, onMounted } from "vue";
+import {
+  getLatestContributions,
+  getMyContributions,
+  getContributionsMetrics,
+  getToolsMetrics,
+  getUserMetrics,
+} from "../stores/api.js";
 
 function calcPercentMissing(numberMissing, numberTotal) {
   return ((numberMissing / numberTotal) * 100).toFixed(2);
@@ -23,7 +29,7 @@ watchEffect(async () => {
       console.log(error);
     }
   }
-})
+});
 
 const globalContributions = ref([]);
 watchEffect(async () => {
@@ -35,16 +41,36 @@ watchEffect(async () => {
   }
 });
 
-const globalStats = ref({
-  totalTools: 2702,
-  toolsMissingInfo: 2701,
-  contributionsLast30Days: 73,
-  contributionsTotal: 226,
+const contributionsMetrics = ref({});
+watchEffect(async () => {
+  try {
+    contributionsMetrics.value = await getContributionsMetrics();
+  } catch (error) {
+    isError.value = true;
+    console.log(error);
+  }
 });
 
-const userStats = ref({
-  contributionsLast30Days: 4,
-  contributionsTotal: 10,
+const toolsMetrics = ref({});
+watchEffect(async () => {
+  try {
+    toolsMetrics.value = await getToolsMetrics();
+  } catch (error) {
+    isError.value = true;
+    console.log(error);
+  }
+});
+
+const userMetrics = ref({});
+watchEffect(async () => {
+  if (props.currentUser) {
+    try {
+      userMetrics.value = await getUserMetrics();
+    } catch (error) {
+      isError.value = true;
+      console.log(error);
+    }
+  }
 });
 </script>
 
@@ -90,21 +116,27 @@ const userStats = ref({
             <v-card-text>
               <v-table>
                 <tbody>
-                  <tr>
+                  <tr v-if="userMetrics.value">
                     <td>My contributions in the last 30 days:</td>
-                    <td>{{ userStats.contributionsLast30Days }}</td>
+                    <td>
+                      {{ userMetrics.My_contributions_in_the_past_30_days }}
+                    </td>
                   </tr>
-                  <tr>
+                  <tr v-if="userMetrics.value">
                     <td>My total contributions:</td>
-                    <td>{{ userStats.contributionsTotal }}</td>
+                    <td>{{ userMetrics.My_total_contributions }}</td>
                   </tr>
                   <tr>
                     <td>Global contributions in the last 30 days:</td>
-                    <td>{{ globalStats.contributionsLast30Days }}</td>
+                    <td>
+                      {{
+                        contributionsMetrics.Global_contributions_from_the_last_30_days
+                      }}
+                    </td>
                   </tr>
                   <tr>
                     <td>Total contributions:</td>
-                    <td>{{ globalStats.contributionsTotal }}</td>
+                    <td>{{ contributionsMetrics.Total_contributions }}</td>
                   </tr>
                 </tbody>
               </v-table>
@@ -121,19 +153,23 @@ const userStats = ref({
                 <tbody>
                   <tr>
                     <td>Number of tools on record:</td>
-                    <td>{{ globalStats.totalTools }}</td>
+                    <td>{{ toolsMetrics.Number_of_tools_on_record }}</td>
                   </tr>
                   <tr>
                     <td>Number of tools with missing data:</td>
-                    <td>{{ globalStats.toolsMissingInfo }}</td>
+                    <td>
+                      {{
+                        toolsMetrics.Number_of_tools_with_incomplete_information
+                      }}
+                    </td>
                   </tr>
                   <tr>
                     <td>Percentage of tools with missing data:</td>
                     <td>
                       {{
                         calcPercentMissing(
-                          globalStats.toolsMissingInfo,
-                          globalStats.totalTools
+                          toolsMetrics.Number_of_tools_with_incomplete_information,
+                          toolsMetrics.Number_of_tools_on_record
                         )
                       }}%
                     </td>
