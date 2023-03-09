@@ -115,6 +115,7 @@ function getNextTask() {
                 :isError="isError"
                 :getNextTask="getNextTask"
                 :currentUser="currentUser"
+                :pattern="currentTask?.field?.pattern"
               ></UserContributionForm>
             </v-row>
           </v-card-text>
