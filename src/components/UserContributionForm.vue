@@ -148,7 +148,7 @@ const missingFieldRules = computed(() => [
               ></v-select>
             </v-col>
             <v-card-actions
-              class="d-flex flex-column flex-sm-row"
+              class="d-flex flex-column flex-sm-row justify-center"
               style="gap: 10px; margin-top: -20px"
             >
               <v-btn
