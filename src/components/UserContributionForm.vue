@@ -7,7 +7,7 @@ const RE_URL_VALID_BASIC = /^https?:\/\/[^\s]+$/;
 
 const data = defineProps({
   description: String,
-  inputOptions: Object,
+  inputOptions: String,
   missingFieldName: String,
   toolName: String,
   taskId: Number,
@@ -17,10 +17,14 @@ const data = defineProps({
   pattern: String,
 });
 
-const inputOptionsArray = computed(() => {
-  return data?.inputOptions
-    ? Object.entries(data.inputOptions).map(([key, value]) => ({ key, value }))
-    : [];
+const inputOptionsArray = computed(function () {
+  if (data.inputOptions) {
+    const inputOptions = JSON.parse(data.inputOptions.replaceAll("'", '"'));
+    const inputOptionsArray = Object.entries(inputOptions).map(
+      ([key, value]) => ({ key, value })
+    );
+    return inputOptionsArray;
+  } else return [];
 });
 
 const missingFieldValue = ref(null);
