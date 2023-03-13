@@ -10,7 +10,7 @@ services:
       - .:/app
       - /app/node_modules # do not bind mount node_modules
     ports:
-      - "8082:8082"
+      - ${PORT}:${PORT} # set PORT in environment variable
     networks:
       - toolhunt-net
 networks:

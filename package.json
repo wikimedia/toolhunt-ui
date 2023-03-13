@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "start": "npm install && npm run build && node server.js",
     "build": "vite build",
     "preview": "vite preview",
     "test:unit": "vitest --environment jsdom --root src/",
@@ -16,7 +17,10 @@
     "vee-validate": "^4.7.4",
     "vite-plugin-vuetify": "^1.0.1",
     "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
+    "vue-router": "^4.1.6",
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6",
+    "dotenv": "^10.0.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.4",
