@@ -25,15 +25,15 @@ function getNextTask() {
 <template>
   <v-container
     class="d-flex align-center"
-    style="gap: 16px; max-width: 600px; margin-inline: auto;"
+    style="gap: 16px; max-width: 600px; margin-inline: auto"
     fluid
   >
-    <v-img
-      src="./src/assets/logo-main.svg"
+    <img
+      src="@/assets/logo-main.svg"
       height="100"
       width="100"
       class="overflow-visible"
-    ></v-img>
+    />
     <div>
       <p class="text-h2">Toolhunt</p>
       <p class="text-subtitle-2 d-none d-sm-flex">

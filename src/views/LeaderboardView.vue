@@ -6,26 +6,26 @@ import { getAllTimeGreat } from "../stores/api.js";
 const profileBaseUrl = ref("https://meta.wikimedia.org/wiki/User:");
 
 const last30DaysTopContributions = ref([]);
-const isError30Days = ref(false)
+const isError30Days = ref(false);
 watchEffect(async () => {
   try {
-    last30DaysTopContributions.value = await getAllTimeGreat(true)
-  } catch(error) {
-    isError30Days.value = true
-    console.log(error)
+    last30DaysTopContributions.value = await getAllTimeGreat(true);
+  } catch (error) {
+    isError30Days.value = true;
+    console.log(error);
   }
-})
+});
 
 const allTimeTopContributions = ref([]);
-const isError = ref(false)
+const isError = ref(false);
 watchEffect(async () => {
   try {
-    allTimeTopContributions.value = await getAllTimeGreat()
-  } catch(error) {
-    isError.value = true
-    console.log(error)
+    allTimeTopContributions.value = await getAllTimeGreat();
+  } catch (error) {
+    isError.value = true;
+    console.log(error);
   }
-})
+});
 </script>
 
 <template>
@@ -34,12 +34,12 @@ watchEffect(async () => {
     style="gap: 16px; max-width: 800px; margin-inline: auto"
     fluid
   >
-    <v-img
-      src="./src/assets/logo-main.svg"
+    <img
+      src="@/assets/logo-main.svg"
       height="75"
       width="75"
       class="overflow-visible"
-    ></v-img>
+    />
     <div>
       <p class="text-h4">Toolhunt Leaderboard</p>
       <p class="text-subtitle-2 d-none d-sm-block">
