@@ -19,4 +19,5 @@ USER node
 
 # # start app 
 # "dev" rather than "serv" is Vite's default for loading the development environment
-CMD ["npm", "run", "dev"]
+# for production build use "start" in place of "dev"
+CMD ["npm", "run", "dev"] 
