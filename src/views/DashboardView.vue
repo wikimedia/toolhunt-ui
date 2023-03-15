@@ -80,7 +80,12 @@ watchEffect(async () => {
     style="max-width: 800px; gap: 16px; margin-inline: auto"
     fluid
   >
-    <v-img src="src/assets/logo-main.svg" height="75" width="75" alt=""></v-img>
+    <img
+      src="@/assets/logo-main.svg"
+      height="75"
+      width="75"
+      class="overflow-visible"
+    />
     <div v-if="props.currentUser">
       <h1>Welcome, {{ props.currentUser }}!</h1>
       <p class="d-none d-sm-block">

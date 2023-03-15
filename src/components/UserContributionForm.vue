@@ -116,7 +116,7 @@ const missingFieldRules = computed(() => [
               <v-text-field
                 v-if="!data?.inputOptions"
                 v-model="missingFieldValue"
-                :label="this.missingFieldName"
+                :label="data.missingFieldName"
                 :error-messages="errorMessage.value"
                 key="text-field"
                 :rules="missingFieldRules"
@@ -131,7 +131,7 @@ const missingFieldRules = computed(() => [
                 item-title="value"
                 item-value="key"
                 :items="inputOptionsArray"
-                :label="this.missingFieldName"
+                :label="data.missingFieldName"
               ></v-select>
               <v-select
                 v-if="
@@ -143,7 +143,7 @@ const missingFieldRules = computed(() => [
                 item-title="value"
                 item-value="key"
                 :items="inputOptionsArray"
-                :label="this.missingFieldName"
+                :label="data.missingFieldName"
                 multiple
               ></v-select>
             </v-col>
