@@ -4,7 +4,7 @@ import ToolData from "./table_data/ToolData.vue";
 import UserProfile from "./table_data/UserProfile.vue";
 import { defineProps } from "vue";
 
-const { contribution } = defineProps({
+const props = defineProps({
   contributions: Array,
   showUserProfile: Boolean,
   isError: Boolean,
@@ -20,12 +20,12 @@ const { contribution } = defineProps({
         <v-table class="contributionTable">
           <tbody>
             <tr
-              v-for="contribution in contributions"
+              v-for="contribution in props.contributions"
               :key="contribution.dateModified"
             >
               <DateString :dateString="contribution?.timestamp" />
               <UserProfile
-                v-if="this.showUserProfile"
+                v-if="props.showUserProfile"
                 :user="contribution.user"
               />
               <ToolData 
