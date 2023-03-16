@@ -23,15 +23,15 @@ const props = defineProps({
               v-for="contribution in props.contributions"
               :key="contribution.dateModified"
             >
-              <DateString :dateString="contribution?.timestamp" />
+              <DateString :dateString="contribution?.completed_date" />
               <UserProfile
                 v-if="props.showUserProfile"
                 :user="contribution.user"
               />
-              <ToolData 
+              <ToolData
                 :toolName="contribution?.tool_name"
-                :toolTitle="contribution?.tool.title"
-                :fieldEdited="contribution?.field_name"
+                :toolTitle="contribution?.tool_title"
+                :fieldEdited="contribution?.field"
               />
             </tr>
           </tbody>
