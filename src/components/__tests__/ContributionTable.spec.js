@@ -11,11 +11,9 @@ describe("ContributionTable", () => {
         {
           user: "NicoleLBee",
           tool_name: "pywikibot",
-          field_name: "available_ui_languages",
-          timestamp: 1666214747862,
-          tool: {
-            title: "Pywikibot",
-          }
+          field: "available_ui_languages",
+          completed_date: 1666214747862,
+          tool_title: "Pywikibot",
         },
       ],
       showUserProfile: true,
@@ -49,11 +47,9 @@ describe("ContributionTable", () => {
         {
           user: "NicoleLBee",
           tool_name: "pywikibot",
-          field_name: "available_ui_languages",
-          timestamp: 1666214747862,
-          tool: {
-            title: "Pywikibot",
-          }
+          field: "available_ui_languages",
+          completed_date: 1666214747862,
+          tool_title: "Pywikibot",
         },
       ],
       showUserProfile: false,
