@@ -83,7 +83,7 @@ function getNextTask() {
                   <tbody>
                     <tr>
                       <td>Tool Name</td>
-                      <td>{{ currentTask?.tool?.name }}</td>
+                      <td>{{ currentTask?.tool?.title }}</td>
                     </tr>
                     <tr>
                       <td>Tool Description</td>

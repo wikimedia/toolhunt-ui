@@ -13,7 +13,7 @@ describe("Home", () => {
           field: {
             description: "a thing for doing the thing",
             input_options: null,
-            name: "wikidata_qid"
+            name: "wikidata_qid",
           },
           id: 1,
           timestamp: null,
@@ -21,9 +21,9 @@ describe("Home", () => {
             description: "Shows you little things you can do on Wikidata.",
             name: "mm_wikidata_todo",
             title: "Wikidata Todo",
-            url: "http://tools.wmflabs.org/wikidata-todo"
+            url: "http://tools.wmflabs.org/wikidata-todo",
           },
-          "user": null
+          user: null,
         },
       ],
     };
@@ -34,7 +34,7 @@ describe("Home", () => {
       },
     });
     const rows = wrapper.find("tbody").findAll("tr");
-    expect(rows[0].findAll("td")[1].text()).toBe("mm_wikidata_todo");
+    expect(rows[0].findAll("td")[1].text()).toBe("Wikidata Todo");
     expect(rows[1].findAll("td")[1].text()).toBe(
       "Shows you little things you can do on Wikidata."
     );
@@ -51,33 +51,35 @@ describe("Home", () => {
           field: {
             description: "a thing for doing the thing",
             input_options: null,
-            name: "wikidata_qid"
+            name: "wikidata_qid",
           },
           id: 1,
           timestamp: null,
           tool: {
-            description: "Python library and collection of scripts that automate work on MediaWiki sites",
+            description:
+              "Python library and collection of scripts that automate work on MediaWiki sites",
             name: "Pywikibot",
             title: "Pywikibot",
-            url: "https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Pywikibot"
+            url: "https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Pywikibot",
           },
-          "user": null
+          user: null,
         },
         {
           field: {
             description: "a thing for doing the thing",
             input_options: null,
-            name: "openhub_id"
+            name: "openhub_id",
           },
           id: 1,
           timestamp: null,
           tool: {
-            description: "This project is aimed at getting very basic author statistics for a specified page.",
+            description:
+              "This project is aimed at getting very basic author statistics for a specified page.",
             name: "toolforge-authors",
-            title: "Wikidata Todo",
-            url: "https://toolsadmin.wikimedia.org/tools/id/authors"
+            title: "Authors of a page",
+            url: "https://toolsadmin.wikimedia.org/tools/id/authors",
           },
-          "user": null
+          user: null,
         },
       ],
     };
@@ -102,7 +104,7 @@ describe("Home", () => {
 
     // Expect the table to be updated with the next task details
     const updatedRows = wrapper.find("tbody").findAll("tr");
-    expect(rows[0].findAll("td")[1].text()).toBe("toolforge-authors");
+    expect(rows[0].findAll("td")[1].text()).toBe("Authors of a page");
     expect(rows[1].findAll("td")[1].text()).toBe(
       "This project is aimed at getting very basic author statistics for a specified page."
     );
