@@ -2,7 +2,6 @@
 import DateString from "./table_data/DateString.vue";
 import ToolData from "./table_data/ToolData.vue";
 import UserProfile from "./table_data/UserProfile.vue";
-import { computed, defineProps } from "vue";
 
 const { contribution } = defineProps({
   contributions: Array,
