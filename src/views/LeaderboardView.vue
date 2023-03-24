@@ -58,6 +58,7 @@ watchEffect(async () => {
           :contributions="last30DaysTopContributions"
           :title="'Top Hunters from the Last 30 Days'"
           :profileBaseUrl="profileBaseUrl"
+          :isError="isError30Days"
         />
       </v-col>
     </v-row>

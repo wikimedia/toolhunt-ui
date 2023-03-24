@@ -119,6 +119,18 @@ watchEffect(async () => {
               <v-card-title>Contribution Stats</v-card-title>
             </v-card-item>
             <v-card-text>
+              <v-overlay
+                v-model="isError"
+                contained
+                class="align-center justify-center"
+              >
+                <v-alert
+                  density="compact"
+                  align="center"
+                  type="error"
+                  text="We are having a problem fetching this data for you right now, please refresh the page"
+                ></v-alert>
+              </v-overlay>
               <v-table>
                 <tbody>
                   <tr v-if="userMetrics.value">
@@ -154,6 +166,18 @@ watchEffect(async () => {
               <v-card-title>Toolhub at a Glance</v-card-title>
             </v-card-item>
             <v-card-text>
+              <v-overlay
+                v-model="isError"
+                contained
+                class="align-center justify-center"
+              >
+                <v-alert
+                  density="compact"
+                  align="center"
+                  type="error"
+                  text="We are having a problem fetching this data for you right now, please refresh the page"
+                ></v-alert>
+              </v-overlay>
               <v-table>
                 <tbody>
                   <tr>
@@ -189,6 +213,7 @@ watchEffect(async () => {
         <ContributionTable
           :contributions="globalContributions"
           :showUserProfile="true"
+          :isError="isError"
           v-if="globalContributions.length > 0"
         >
           Latest Activity
