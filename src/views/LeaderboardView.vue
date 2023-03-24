@@ -4,7 +4,9 @@ import LeaderboardTable from "../components/LeaderboardTable.vue";
 import { getAllTimeGreat } from "../stores/api.js";
 
 const profileBaseUrl = ref("https://meta.wikimedia.org/wiki/User:");
-
+const props = defineProps({
+  currentUser: String,
+});
 const last30DaysTopContributions = ref([]);
 const isError30Days = ref(false);
 watchEffect(async () => {
