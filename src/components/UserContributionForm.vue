@@ -66,7 +66,7 @@ const submit = async () => {
           );
         });
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     } finally {
       missingFieldValue.value = null;
     }
