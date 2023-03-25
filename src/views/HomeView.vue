@@ -11,7 +11,7 @@ watchEffect(async () => {
     tasks.value = await getTasks();
   } catch (error) {
     isError.value = true;
-    console.log(error.message);
+    console.log("Error loading HomeView data: " + error.message);
   }
 });
 </script>
