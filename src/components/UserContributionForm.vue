@@ -75,6 +75,7 @@ const submit = async () => {
 
 function skipToNext() {
   form.value.reset();
+  missingFieldValue.value = null;
   data.getNextTask();
 }
 
