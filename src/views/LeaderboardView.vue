@@ -12,7 +12,7 @@ watchEffect(async () => {
     last30DaysTopContributions.value = await getAllTimeGreat(true);
   } catch (error) {
     isError30Days.value = true;
-    console.log(error);
+    console.log("Error fetching leaderboard data: " + error.message);
   }
 });
 
@@ -23,7 +23,7 @@ watchEffect(async () => {
     allTimeTopContributions.value = await getAllTimeGreat();
   } catch (error) {
     isError.value = true;
-    console.log(error);
+    console.log("Error fetching leaderboard data: " + error.message);
   }
 });
 </script>

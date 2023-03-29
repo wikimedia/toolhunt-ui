@@ -4,16 +4,16 @@ import Home from "../components/Home.vue";
 import { getTasks } from "../stores/api.js";
 
 const tasks = ref([]);
-const isError = ref(false)
+const isError = ref(false);
 
 watchEffect(async () => {
   try {
-    tasks.value = await getTasks()
-  } catch(error) {
-    isError.value = true
-    console.log(error)
+    tasks.value = await getTasks();
+  } catch (error) {
+    isError.value = true;
+    console.log("Error loading HomeView data: " + error.message);
   }
-})
+});
 </script>
 
 <template>

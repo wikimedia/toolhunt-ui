@@ -8,7 +8,6 @@ const props = defineProps({
   showUserProfile: Boolean,
   isError: Boolean,
 });
-
 </script>
 <template>
   <v-col>
@@ -17,7 +16,6 @@ const props = defineProps({
         <v-card-title><slot /></v-card-title>
       </v-card-item>
       <v-card-text>
-        {{ `The error: ${this.isError}` }}
         <v-table class="contributionTable">
           <tbody>
             <tr

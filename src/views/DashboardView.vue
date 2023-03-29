@@ -26,7 +26,7 @@ watchEffect(async () => {
       userContributions.value = await getMyContributions(props.currentUser);
     } catch (error) {
       isError.value = true;
-      console.log(error);
+      console.log("Error fetching user contributions: " + error.message);
     }
   }
 });
@@ -37,7 +37,7 @@ watchEffect(async () => {
     globalContributions.value = await getLatestContributions();
   } catch (error) {
     isError.value = true;
-    console.log(error);
+    console.log("Error fetching latest contributions: " + error.message);
   }
 });
 
@@ -47,7 +47,7 @@ watchEffect(async () => {
     contributionsMetrics.value = await getContributionsMetrics();
   } catch (error) {
     isError.value = true;
-    console.log(error);
+    console.log("Error fetching contribution metrics: " + error.message);
   }
 });
 
@@ -57,7 +57,7 @@ watchEffect(async () => {
     toolsMetrics.value = await getToolsMetrics();
   } catch (error) {
     isError.value = true;
-    console.log(error);
+    console.log("Error fetching tool metrics: " + error.message);
   }
 });
 
@@ -68,7 +68,7 @@ watchEffect(async () => {
       userMetrics.value = await getUserMetrics();
     } catch (error) {
       isError.value = true;
-      console.log(error);
+      console.log("Error fetching user metrics: " + error.message);
     }
   }
 });
