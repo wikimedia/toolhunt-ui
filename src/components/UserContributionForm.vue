@@ -84,7 +84,10 @@ const missingFieldRules = computed(() => [
       const re = new RegExp(data.pattern);
       if (re.test(value)) return true;
       return `Field should follow this pattern:${data.pattern}`;
-    } else if (data.missingFieldName.includes("url")) {
+    } else if (
+      data.missingFieldName.includes("url") ||
+      data.missingFieldName == "repository"
+    ) {
       if (!RE_URL_VALID_BASIC.test(value)) {
         return "Field should be a valid URL";
       }
