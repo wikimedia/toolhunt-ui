@@ -51,19 +51,14 @@ const submit = async () => {
           alert(res.data);
         })
         .catch((error) => {
-          if (error.response.status === 409) {
-            alert(
-              "Someone else has completed this task.  Please click 'skip to next' to try another one."
-            );
-          }
-          if (error.response.status === 401) {
-            alert(
-              "You must be logged in to submit a task. Please click on the Login button."
-            );
-          }
-          alert(
-            "There was a problem sending your request. Please try again later."
-          );
+          const alertMsgs = {
+            404: "The task cannot be found.  It may have already been completed.  Please click 'skip to next' to try another one.",
+            401: "You must be logged in to submit a task. Please click on the Login button.",
+            400: "Validation failure.  The data given doesn't match the task specifications.",
+            default:
+              "There was a problem sending your request. Please try again later.",
+          };
+          alert(alertMsgs[error.response.status] || alertMsgs.default);
         });
     } catch (error) {
       console.log(error.message);
