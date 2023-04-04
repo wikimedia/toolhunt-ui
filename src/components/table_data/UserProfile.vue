@@ -1,19 +1,19 @@
 <template>
   <td>
-    <a :href=userProfileURL target="_blank">{{ user }}</a>
+    <a :href="userProfileURL" target="_blank">{{ user }}</a>
   </td>
 </template>
 
 <script>
 export default {
   props: {
-    user: String
+    user: String,
   },
   computed: {
-    userProfileURL: function() {
+    userProfileURL: function () {
       let profileName = this.user.split(" ").join("_");
-      return `https://en.wikipedia.org/wiki/User:${profileName}`;
-    }
-  }
-}
+      return `https://meta.wikimedia.org/wiki/User:${profileName}`;
+    },
+  },
+};
 </script>
