@@ -89,7 +89,10 @@ const props = defineProps({
     <v-btn to="/" flat @click="toggleMenu">Home</v-btn>
     <v-btn to="/dashboard" flat @click="toggleMenu">Dashboard</v-btn>
     <v-btn to="/leaderboard" flat @click="toggleMenu">Leaderboard</v-btn>
-    <v-btn flat @click="toggleMenu">Login</v-btn>
+    <v-btn v-if="props.currentUser" href="/api/logout" flat @click="toggleMenu"
+      >Logout</v-btn
+    >
+    <v-btn v-else href="/api/login" flat @click="toggleMenu">Login</v-btn>
   </nav>
 </template>
 
@@ -135,6 +138,9 @@ button.v-btn.mobile-nav-btn {
   right: 0;
   transform: translateX(200px) scaleX(0);
   transition: 0.3s;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
+  z-index: 9000;
 }
 
 .mobile-nav-display {
