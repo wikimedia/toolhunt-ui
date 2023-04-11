@@ -92,7 +92,7 @@ function getNextTask() {
                     <tr>
                       <td>Url</td>
                       <td>
-                        <a :href="currentTask?.tool?.url">
+                        <a :href="currentTask?.tool?.url" target="_blank">
                           {{ currentTask?.tool?.url }}
                         </a>
                       </td>
