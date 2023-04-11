@@ -34,7 +34,7 @@ describe("ContributionTable", () => {
     );
     expect(columns[1].text()).toBe("NicoleLBee");
     expect(columns[1].find("a").attributes().href).toBe(
-      "https://en.wikipedia.org/wiki/User:NicoleLBee"
+      "https://meta.wikimedia.org/wiki/User:NicoleLBee"
     );
     expect(columns[2].text()).toBe("Added available_ui_languages to Pywikibot");
     expect(columns[2].find("a").attributes().href).toBe(
