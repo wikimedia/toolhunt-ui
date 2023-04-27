@@ -1,6 +1,5 @@
 <script setup>
 import { ref, computed } from "vue";
-import { defineProps } from "vue";
 import { recordUserContribution } from "../stores/api.js";
 
 const RE_URL_VALID_BASIC = /^https?:\/\/[^\s]+$/;
@@ -26,6 +25,7 @@ const inputOptionsArray = computed(() => {
 const missingFieldValue = ref(null);
 const form = ref(null);
 const errorMessage = ref("");
+const emit = defineEmits(["task-submitted"]);
 
 const submit = async () => {
   if (!data.currentUser) {
@@ -49,6 +49,7 @@ const submit = async () => {
       await recordUserContribution(data.taskId, contributionRecord)
         .then((res) => {
           alert(res.data);
+          emit("task-submitted");
         })
         .catch((error) => {
           const alertMsgs = {
@@ -89,6 +90,7 @@ const missingFieldRules = computed(() => [
       }
 
       try {
+        // eslint-disable-next-line no-unused-vars
         const url = new URL(value);
         return true;
       } catch (_) {

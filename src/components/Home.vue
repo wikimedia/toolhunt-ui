@@ -1,26 +1,11 @@
 <script setup>
-import { ref, defineProps, watchEffect } from "vue";
-import UserContributionForm from "./UserContributionForm.vue";
-
 const props = defineProps({
-  tasks: Array,
+  toolName: String,
+  toolDescription: String,
+  missingField: String,
+  toolURL: String,
   isError: Boolean,
-  currentUser: String,
 });
-const currentTaskIndex = ref(0);
-const currentTask = ref(null);
-
-watchEffect(() => {
-  currentTask.value = props.tasks[currentTaskIndex.value];
-});
-
-function getNextTask() {
-  currentTaskIndex.value++;
-  if (props.tasks.length <= currentTaskIndex.value) {
-    // for now it will start at 0 but when connected to backend we can fetch a batch of tasks
-    currentTaskIndex.value = 0;
-  }
-}
 </script>
 <template>
   <v-container
@@ -83,40 +68,27 @@ function getNextTask() {
                   <tbody>
                     <tr>
                       <td>Tool Name</td>
-                      <td>{{ currentTask?.tool?.title }}</td>
+                      <td>{{ props.toolName }}</td>
                     </tr>
                     <tr>
                       <td>Tool Description</td>
-                      <td>{{ currentTask?.tool?.description }}</td>
+                      <td>{{ props.toolDescription }}</td>
                     </tr>
                     <tr>
                       <td>Url</td>
                       <td>
-                        <a :href="currentTask?.tool?.url" target="_blank">
-                          {{ currentTask?.tool?.url }}
+                        <a :href="props.toolURL" target="_blank">
+                          {{ props.toolURL }}
                         </a>
                       </td>
                     </tr>
                     <tr>
                       <td>Missing Field Name</td>
-                      <td>{{ currentTask?.field?.name }}</td>
+                      <td>{{ props.missingField }}</td>
                     </tr>
                   </tbody>
                 </v-table>
               </v-col>
-            </v-row>
-            <v-row>
-              <UserContributionForm
-                :description="currentTask?.field?.description"
-                :inputOptions="currentTask?.field?.input_options"
-                :missingFieldName="currentTask?.field?.name"
-                :toolName="currentTask?.tool?.name"
-                :taskId="currentTask?.id"
-                :isError="isError"
-                :getNextTask="getNextTask"
-                :currentUser="currentUser"
-                :pattern="currentTask?.field?.pattern"
-              ></UserContributionForm>
             </v-row>
           </v-card-text>
         </v-card>
