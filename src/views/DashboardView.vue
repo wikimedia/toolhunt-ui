@@ -82,8 +82,8 @@ watchEffect(async () => {
   >
     <img
       src="@/assets/logo-main.svg"
-      height="75"
-      width="75"
+      height="90"
+      width="90"
       class="overflow-visible"
     />
     <div>
@@ -91,7 +91,7 @@ watchEffect(async () => {
         Welcome, {{ props.currentUser }}!
       </h1>
       <h1 v-else class="text-h4">Toolhunt Dashboard</h1>
-      <p class="text-subtitle-2 d-none d-sm-block">
+      <p class="text-body-1 d-none d-sm-block mt-1">
         Here on the Dashboard, you can view your latest contributions and check
         out global contributions and statistics about Toolhub and the Toolhunt
         project.
