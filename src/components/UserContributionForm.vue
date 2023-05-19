@@ -121,6 +121,7 @@ const missingFieldRules = computed(() => [
                 :error-messages="errorMessage.value"
                 key="text-field"
                 :rules="missingFieldRules"
+                clearable
               ></v-text-field>
               <v-select
                 v-if="
