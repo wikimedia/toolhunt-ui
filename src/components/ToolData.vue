@@ -2,7 +2,6 @@
 const props = defineProps({
   toolName: String,
   toolDescription: String,
-  missingField: String,
   toolURL: String,
   isError: Boolean,
 });
@@ -35,10 +34,6 @@ const props = defineProps({
               {{ props.toolURL }}
             </a>
           </td>
-        </tr>
-        <tr>
-          <td>Missing Field Name</td>
-          <td>{{ props.missingField }}</td>
         </tr>
       </tbody>
     </v-table>

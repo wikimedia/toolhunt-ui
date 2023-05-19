@@ -71,7 +71,6 @@ function getNextTask() {
         :toolName="currentTask?.tool?.title"
         :toolDescription="currentTask?.tool?.description"
         :toolURL="currentTask?.tool?.url"
-        :missingField="currentTask?.field?.name"
         :isError="isError"
       ></ToolData>
     </v-row>
