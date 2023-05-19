@@ -3,7 +3,7 @@ import ToolData from "../components/ToolData.vue";
 import UserContributionForm from "../components/UserContributionForm.vue";
 import SearchBar from "../components/SearchBar.vue";
 import { onMounted, ref, watchEffect } from "vue";
-import { getTasks } from "../stores/api.js";
+import { getTasks, getTasksByToolName } from "../stores/api.js";
 
 const tasks = ref([]);
 const isError = ref(false);
@@ -39,6 +39,16 @@ function getNextTask() {
     currentTaskIndex.value = 0;
   }
 }
+
+async function getTasksForTool(requestedTool) {
+  try {
+    tasks.value = await getTasksByToolName(requestedTool);
+  } catch (error) {
+    if (error.response.status == 404) {
+      console.log("Tool not found");
+    }
+  }
+}
 </script>
 
 <template>
@@ -64,7 +74,7 @@ function getNextTask() {
   </v-container>
   <v-container>
     <v-row class="d-flex justify-center mt-2">
-      <SearchBar />
+      <SearchBar @tool-requested="getTasksForTool"></SearchBar>
     </v-row>
     <v-row class="d-flex flex-column mt-4">
       <ToolData

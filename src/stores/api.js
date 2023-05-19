@@ -10,6 +10,14 @@ export async function getTasks() {
   return res.data;
 }
 
+export async function getTasksByToolName(toolName) {
+  const res = await axios.get(BASE_URL + `/api/tasks/tool/${toolName}`, {
+    raw: true,
+    timeout: 10000,
+  });
+  return res.data;
+}
+
 export async function getLatestContributions() {
   const res = await axios.get(BASE_URL + "/api/contributions/?limit=5", {
     raw: true,

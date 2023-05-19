@@ -1,7 +1,7 @@
 <script setup>
-function clickTest() {
-  console.log("Clicked");
-}
+import { ref } from "vue";
+const requestedTool = ref(null);
+defineEmits(["tool-requested"]);
 </script>
 <template>
   <div>
@@ -10,7 +10,8 @@ function clickTest() {
       variant="outlined"
       append-inner-icon="mdi-magnify"
       clearable
-      @click:append-inner="clickTest"
+      @click:append-inner="$emit('tool-requested', requestedTool)"
+      v-model="requestedTool"
     >
     </v-text-field>
   </div>
