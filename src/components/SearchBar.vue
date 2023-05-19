@@ -4,13 +4,20 @@ function clickTest() {
 }
 </script>
 <template>
-  <v-text-field
-    label="Search for a tool"
-    variant="outlined"
-    append-inner-icon="mdi-magnify"
-    clearable
-    @click:append-inner="clickTest"
-  >
-  </v-text-field>
+  <div>
+    <v-text-field
+      label="Find a tool"
+      variant="outlined"
+      append-inner-icon="mdi-magnify"
+      clearable
+      @click:append-inner="clickTest"
+    >
+    </v-text-field>
+  </div>
 </template>
-<style scoped></style>
+<style scoped>
+.v-text-field {
+  width: 80vw;
+  max-width: 500px;
+}
+</style>

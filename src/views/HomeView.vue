@@ -63,7 +63,7 @@ function getNextTask() {
     </div>
   </v-container>
   <v-container>
-    <v-row class="d-flex flex-column">
+    <v-row class="d-flex justify-center">
       <SearchBar />
     </v-row>
     <v-row class="d-flex flex-column">
