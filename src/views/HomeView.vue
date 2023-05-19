@@ -1,6 +1,7 @@
 <script setup>
 import Home from "../components/Home.vue";
 import UserContributionForm from "../components/UserContributionForm.vue";
+import SearchBar from "../components/SearchBar.vue";
 import { onMounted, ref, watchEffect } from "vue";
 import { getTasks } from "../stores/api.js";
 
@@ -60,6 +61,9 @@ function getNextTask() {
       </p>
     </div>
   </v-container>
+  <v-row class="d-flex flex-column">
+    <SearchBar />
+  </v-row>
   <v-row class="d-flex flex-column">
     <Home
       :toolName="currentTask?.tool?.title"
