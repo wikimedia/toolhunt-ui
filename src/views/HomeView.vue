@@ -1,5 +1,5 @@
 <script setup>
-import Home from "../components/Home.vue";
+import ToolData from "../components/ToolData.vue";
 import UserContributionForm from "../components/UserContributionForm.vue";
 import SearchBar from "../components/SearchBar.vue";
 import { onMounted, ref, watchEffect } from "vue";
@@ -57,33 +57,36 @@ function getNextTask() {
       <h1 class="text-h4">Welcome to Toolhunt</h1>
       <p class="text-subtitle-2 d-none d-sm-block">
         Many of the tools on Toolhub are missing valuable information. Can you
-        help us improve the listings by hunting down links and data?
+        help us improve the listings by hunting down links and data? Search for
+        a tool to edit or browse a selection of random tasks.
       </p>
     </div>
   </v-container>
-  <v-row class="d-flex flex-column">
-    <SearchBar />
-  </v-row>
-  <v-row class="d-flex flex-column">
-    <Home
-      :toolName="currentTask?.tool?.title"
-      :toolDescription="currentTask?.tool?.description"
-      :toolURL="currentTask?.tool?.url"
-      :missingField="currentTask?.field?.name"
-    ></Home>
-  </v-row>
-  <v-row>
-    <UserContributionForm
-      @task-submitted="updateTasks"
-      :description="currentTask?.field?.description"
-      :inputOptions="currentTask?.field?.input_options"
-      :missingFieldName="currentTask?.field?.name"
-      :toolName="currentTask?.tool?.name"
-      :taskId="currentTask?.id"
-      :isError="isError"
-      :getNextTask="getNextTask"
-      :currentUser="props.currentUser"
-      :pattern="currentTask?.field?.pattern"
-    ></UserContributionForm>
-  </v-row>
+  <v-container>
+    <v-row class="d-flex flex-column">
+      <SearchBar />
+    </v-row>
+    <v-row class="d-flex flex-column">
+      <ToolData
+        :toolName="currentTask?.tool?.title"
+        :toolDescription="currentTask?.tool?.description"
+        :toolURL="currentTask?.tool?.url"
+        :missingField="currentTask?.field?.name"
+        :isError="isError"
+      ></ToolData>
+    </v-row>
+    <v-row>
+      <UserContributionForm
+        @task-submitted="updateTasks"
+        :description="currentTask?.field?.description"
+        :inputOptions="currentTask?.field?.input_options"
+        :missingFieldName="currentTask?.field?.name"
+        :toolName="currentTask?.tool?.name"
+        :taskId="currentTask?.id"
+        :getNextTask="getNextTask"
+        :currentUser="props.currentUser"
+        :pattern="currentTask?.field?.pattern"
+      ></UserContributionForm>
+    </v-row>
+  </v-container>
 </template>
