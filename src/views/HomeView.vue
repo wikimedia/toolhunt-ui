@@ -41,6 +41,25 @@ function getNextTask() {
 </script>
 
 <template>
+  <v-container
+    class="d-flex align-center"
+    style="gap: 16px; max-width: 800px; margin-inline: auto"
+    fluid
+  >
+    <img
+      src="@/assets/logo-main.svg"
+      height="75"
+      width="75"
+      class="overflow-visible"
+    />
+    <div>
+      <h1 class="text-h4">Welcome to Toolhunt</h1>
+      <p class="text-subtitle-2 d-none d-sm-block">
+        Many of the tools on Toolhub are missing valuable information. Can you
+        help us improve the listings by hunting down links and data?
+      </p>
+    </div>
+  </v-container>
   <v-row class="d-flex flex-column">
     <Home
       :toolName="currentTask?.tool?.title"
