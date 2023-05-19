@@ -27,27 +27,6 @@ const props = defineProps({
       </p>
     </div>
   </v-container>
-  <!--  v-container
-    class="d-flex align-center"
-    style="gap: 16px; max-width: 600px; margin-inline: auto"
-    fluid
-  >
-    <img
-      src="@/assets/logo-main.svg"
-      height="100"
-      width="100"
-      class="overflow-visible"
-    />
-    <div>
-      <p class="text-h2">Toolhunt</p>
-      <p class="text-subtitle-2 d-none d-sm-flex">
-        Currently, many tools in Toolhub have missing or incomplete information.
-      </p>
-      <p class="text-subtitle-2 d-none d-sm-flex">
-        Please help us add the missing fields and incomplete information
-      </p>
-    </div>
-  </v-container -->
   <v-container>
     <v-row>
       <v-col cols="12">
