@@ -45,7 +45,10 @@ async function getTasksForTool(requestedTool) {
     tasks.value = await getTasksByToolName(requestedTool);
   } catch (error) {
     if (error.response.status == 404) {
-      console.log("Tool not found");
+      alert("Sorry, we have no record of a tool with that name.");
+    } else {
+      isError.value = true;
+      console.log("Error loading HomeView data: " + error.message);
     }
   }
 }
@@ -67,8 +70,8 @@ async function getTasksForTool(requestedTool) {
       <h1 class="text-h4">Welcome to Toolhunt</h1>
       <p class="text-body-1 d-none d-sm-block mt-1">
         Many of the tools on Toolhub are missing valuable information. Can you
-        help us improve the listings by hunting down links and data? Search for
-        a tool to edit or browse a selection of random tasks.
+        help improve the listings by hunting down links and data? Search for a
+        tool to edit or browse a selection of random tasks.
       </p>
     </div>
   </v-container>
