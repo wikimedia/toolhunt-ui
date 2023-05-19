@@ -43,7 +43,7 @@ watchEffect(async () => {
       class="overflow-visible"
     />
     <div>
-      <p class="text-h4">Toolhunt Leaderboard</p>
+      <h1 class="text-h4">Toolhunt Leaderboard</h1>
       <p class="text-subtitle-2 d-none d-sm-block">
         Recognizing the users who have hunted down the most references, this
         month and for all time.

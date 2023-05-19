@@ -86,19 +86,15 @@ watchEffect(async () => {
       width="75"
       class="overflow-visible"
     />
-    <div v-if="props.currentUser">
-      <h1>Welcome, {{ props.currentUser }}!</h1>
-      <p class="d-none d-sm-block">
+    <div>
+      <h1 v-if="props.currentUser" class="text-h4">
+        Welcome, {{ props.currentUser }}!
+      </h1>
+      <h1 v-else class="text-h4">Toolhunt Dashboard</h1>
+      <p class="text-subtitle-2 d-none d-sm-block">
         Here on the Dashboard, you can view your latest contributions and check
         out global contributions and statistics about Toolhub and the Toolhunt
         project.
-      </p>
-    </div>
-    <div v-else>
-      <p class="d-none d-sm-block">
-        Here on the Dashboard, you can check out global contributions and
-        statistics about Toolhub and the Toolhunt project. Login to see your
-        personal data.
       </p>
     </div>
   </v-container>
