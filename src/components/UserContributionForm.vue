@@ -10,7 +10,6 @@ const data = defineProps({
   missingFieldName: String,
   toolName: String,
   taskId: Number,
-  isError: Boolean,
   getNextTask: Function,
   currentUser: String,
   pattern: String,
