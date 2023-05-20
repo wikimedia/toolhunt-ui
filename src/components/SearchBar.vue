@@ -13,6 +13,12 @@ watch(search, (val) => {
   val && val !== select.value && querySelections(val);
 });
 
+function clearSelection() {
+  search.value = null;
+  select.value = null;
+  items.value = [];
+}
+
 function querySelections(v) {
   loading.value = true;
   setTimeout(() => {
@@ -35,8 +41,14 @@ function querySelections(v) {
       :loading="loading"
       :items="items"
       append-inner-icon="mdi-magnify"
-      @keyup.enter.prevent="$emit('tool-requested', select)"
-      @click:append-inner="$emit('tool-requested', select)"
+      @keyup.enter.prevent="
+        $emit('tool-requested', select);
+        clearSelection();
+      "
+      @click:append-inner="
+        $emit('tool-requested', select);
+        clearSelection();
+      "
     >
     </v-autocomplete>
   </div>
