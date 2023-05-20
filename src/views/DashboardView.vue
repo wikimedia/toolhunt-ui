@@ -1,6 +1,6 @@
 <script setup>
 import ContributionTable from "../components/ContributionTable.vue";
-import { ref, watchEffect, onMounted } from "vue";
+import { ref, watchEffect } from "vue";
 import {
   getLatestContributions,
   getMyContributions,
@@ -124,7 +124,7 @@ watchEffect(async () => {
                   density="compact"
                   align="center"
                   type="error"
-                  text="We are having a problem fetching this data for you right now, please refresh the page"
+                  text="We are having trouble fetching the data.  Please refresh the page."
                 ></v-alert>
               </v-overlay>
               <v-table>
@@ -171,7 +171,7 @@ watchEffect(async () => {
                   density="compact"
                   align="center"
                   type="error"
-                  text="We are having a problem fetching this data for you right now, please refresh the page"
+                  text="We are having trouble fetching the data.  Please refresh the page."
                 ></v-alert>
               </v-overlay>
               <v-table>

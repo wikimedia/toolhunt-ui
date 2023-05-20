@@ -14,7 +14,7 @@ const props = defineProps({
           <v-alert
             density="compact"
             type="error"
-            text="We are having trouble fetching this data for you right now, please refresh the page"
+            text="We are having trouble fetching the data.  Please refresh the page."
           ></v-alert>
         </th>
       </tr>
