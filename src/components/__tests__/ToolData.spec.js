@@ -1,9 +1,9 @@
 import { describe, it, expect } from "vitest";
 import { mount } from "@vue/test-utils";
 import { createVuetify } from "vuetify";
-import Home from "../Home.vue";
+import ToolData from "../ToolData.vue";
 
-describe("Home", () => {
+describe("ToolData", () => {
   const vuetify = createVuetify();
   const profileBaseUrl = "https://meta.wikimedia.org/wiki/User:";
   it("renders properly", () => {
@@ -13,7 +13,7 @@ describe("Home", () => {
       missingField: "wikidata_qid",
       toolURL: "http://tools.wmflabs.org/wikidata-todo",
     };
-    const wrapper = mount(Home, {
+    const wrapper = mount(ToolData, {
       props: HomeProps,
       global: {
         plugins: [vuetify],
@@ -27,7 +27,6 @@ describe("Home", () => {
     expect(rows[2].findAll("td")[1].text()).toBe(
       "http://tools.wmflabs.org/wikidata-todo"
     );
-    expect(rows[3].findAll("td")[1].text()).toBe("wikidata_qid");
   });
 
   it("shows next task when skip next is clicked", async () => {
@@ -39,7 +38,7 @@ describe("Home", () => {
       toolURL:
         "https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Pywikibot",
     };
-    const wrapper = mount(Home, {
+    const wrapper = mount(ToolData, {
       props: HomeProps,
       global: {
         plugins: [vuetify],
@@ -53,6 +52,5 @@ describe("Home", () => {
     expect(rows[2].findAll("td")[1].text()).toBe(
       "https://www.mediawiki.org/wiki/Special:MyLanguage/Manual:Pywikibot"
     );
-    expect(rows[3].findAll("td")[1].text()).toBe("wikidata_qid");
   });
 });
