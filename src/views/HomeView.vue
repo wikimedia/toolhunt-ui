@@ -3,9 +3,10 @@ import ToolData from "../components/ToolData.vue";
 import UserContributionForm from "../components/UserContributionForm.vue";
 import SearchBar from "../components/SearchBar.vue";
 import { onMounted, ref, watchEffect } from "vue";
-import { getTasks, getTasksByToolName } from "../stores/api.js";
+import { getTasks, getTasksByToolName, getToolList } from "../stores/api.js";
 
 const tasks = ref([]);
+const toolList = ref({});
 const isError = ref(false);
 const currentTaskIndex = ref(0);
 const currentTask = ref(null);
@@ -17,6 +18,7 @@ const props = defineProps({
 onMounted(async () => {
   try {
     tasks.value = await getTasks();
+    toolList.value = await getToolList();
   } catch (error) {
     isError.value = true;
     console.log("Error loading HomeView data: " + error.message);
@@ -42,7 +44,11 @@ function getNextTask() {
 
 async function getTasksForTool(requestedTool) {
   try {
-    tasks.value = await getTasksByToolName(requestedTool);
+    if (toolList.value.allTitles.includes(requestedTool)) {
+      tasks.value = await getTasksByToolName(toolList.value[requestedTool]);
+    } else {
+      alert("Sorry, we have no record of a tool with that name.");
+    }
   } catch (error) {
     if (error.response.status == 404) {
       alert("Sorry, we have no record of a tool with that name.");
@@ -77,7 +83,10 @@ async function getTasksForTool(requestedTool) {
   </v-container>
   <v-container>
     <v-row class="d-flex justify-center mt-2">
-      <SearchBar @tool-requested="getTasksForTool"></SearchBar>
+      <SearchBar
+        :tool-titles="toolList?.allTitles"
+        @tool-requested="getTasksForTool"
+      ></SearchBar>
     </v-row>
     <v-row class="d-flex flex-column mt-4">
       <ToolData

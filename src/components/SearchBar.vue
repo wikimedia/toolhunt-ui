@@ -2,6 +2,9 @@
 import { ref } from "vue";
 const requestedTool = ref(null);
 defineEmits(["tool-requested"]);
+defineProps({
+  "tool-titles": Array,
+});
 </script>
 <template>
   <div>
@@ -10,6 +13,7 @@ defineEmits(["tool-requested"]);
       variant="outlined"
       append-inner-icon="mdi-magnify"
       clearable
+      @keyup.enter.prevent="$emit('tool-requested', requestedTool)"
       @click:append-inner="$emit('tool-requested', requestedTool)"
       v-model="requestedTool"
     >
