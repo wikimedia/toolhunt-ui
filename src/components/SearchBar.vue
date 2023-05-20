@@ -1,22 +1,27 @@
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 defineEmits(["tool-requested"]);
-defineProps({
+const props = defineProps({
   toolTitles: Array,
 });
 const loading = ref(false);
 const search = ref(null);
-const requestedTool = ref(null);
+const select = ref(null);
+const items = ref([]);
 
-// function querySelections(v) {
-//   this.loading = true;
-//   setTimeout(() => {
-//     this.items = this.toolTitles.filter((title) => {
-//       return (title || "").toLowerCase().indexOf((v || "").toLowerCase()) > -1;
-//     });
-//     this.loading = false;
-//   }, 500);
-// }
+watch(search, (val) => {
+  val && val !== select.value && querySelections(val);
+});
+
+function querySelections(v) {
+  loading.value = true;
+  setTimeout(() => {
+    items.value = props.toolTitles.filter((title) => {
+      return (title || "").toLowerCase().indexOf((v || "").toLowerCase()) > -1;
+    });
+    loading.value = false;
+  }, 1500);
+}
 </script>
 <template>
   <div>
@@ -25,13 +30,13 @@ const requestedTool = ref(null);
       variant="outlined"
       clearable
       hide-no-data
-      v-model="requestedTool"
+      v-model="select"
       v-model:search="search"
       :loading="loading"
-      :items="toolTitles"
+      :items="items"
       append-inner-icon="mdi-magnify"
-      @keyup.enter.prevent="$emit('tool-requested', requestedTool)"
-      @click:append-inner="$emit('tool-requested', requestedTool)"
+      @keyup.enter.prevent="$emit('tool-requested', select)"
+      @click:append-inner="$emit('tool-requested', select)"
     >
     </v-autocomplete>
   </div>
