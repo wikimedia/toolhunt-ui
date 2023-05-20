@@ -82,6 +82,11 @@ async function getTasksForTool(requestedTool) {
     </div>
   </v-container>
   <v-container>
+    <p class="text-body-1 d-sm-none pb-5">
+      Many of the tools on Toolhub are missing valuable information. Can you
+      help improve the listings by hunting down links and data? Search for a
+      tool to edit or browse a selection of random tasks.
+    </p>
     <v-row class="d-flex justify-center mt-2">
       <SearchBar
         :tool-titles="toolList?.allTitles"
