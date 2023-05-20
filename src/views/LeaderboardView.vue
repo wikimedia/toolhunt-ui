@@ -4,7 +4,7 @@ import LeaderboardTable from "../components/LeaderboardTable.vue";
 import { getAllTimeGreat } from "../stores/api.js";
 
 const profileBaseUrl = ref("https://meta.wikimedia.org/wiki/User:");
-const props = defineProps({
+defineProps({
   currentUser: String,
 });
 const last30DaysTopContributions = ref([]);
@@ -38,23 +38,20 @@ watchEffect(async () => {
   >
     <img
       src="@/assets/logo-main.svg"
-      height="75"
-      width="75"
+      height="90"
+      width="90"
       class="overflow-visible"
     />
     <div>
-      <p class="text-h4">Toolhunt Leaderboard</p>
-      <p class="text-subtitle-2 d-none d-sm-block">
+      <h1 class="text-h4">Toolhunt Leaderboard</h1>
+      <p class="text-body-1 d-none d-sm-block mt-1">
         Recognizing the users who have hunted down the most references, this
-        month and for all time.
-      </p>
-      <p class="text-subtitle-2 d-none d-sm-block">
-        Thank you for your contributions!
+        month and for all time. Thank you for your contributions!
       </p>
     </div>
   </v-container>
   <v-container>
-    <v-row>
+    <v-row class="mt-2">
       <v-col cols="12">
         <LeaderboardTable
           :contributions="last30DaysTopContributions"
@@ -64,7 +61,7 @@ watchEffect(async () => {
         />
       </v-col>
     </v-row>
-    <v-row>
+    <v-row class="mt-6">
       <v-col cols="12">
         <LeaderboardTable
           :contributions="allTimeTopContributions"

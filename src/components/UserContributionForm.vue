@@ -10,7 +10,6 @@ const data = defineProps({
   missingFieldName: String,
   toolName: String,
   taskId: Number,
-  isError: Boolean,
   getNextTask: Function,
   currentUser: String,
   pattern: String,
@@ -121,6 +120,7 @@ const missingFieldRules = computed(() => [
                 :error-messages="errorMessage.value"
                 key="text-field"
                 :rules="missingFieldRules"
+                clearable
               ></v-text-field>
               <v-select
                 v-if="

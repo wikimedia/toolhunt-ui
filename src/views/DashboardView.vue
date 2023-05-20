@@ -1,6 +1,6 @@
 <script setup>
 import ContributionTable from "../components/ContributionTable.vue";
-import { ref, watchEffect, onMounted } from "vue";
+import { ref, watchEffect } from "vue";
 import {
   getLatestContributions,
   getMyContributions,
@@ -82,23 +82,19 @@ watchEffect(async () => {
   >
     <img
       src="@/assets/logo-main.svg"
-      height="75"
-      width="75"
+      height="90"
+      width="90"
       class="overflow-visible"
     />
-    <div v-if="props.currentUser">
-      <h1>Welcome, {{ props.currentUser }}!</h1>
-      <p class="d-none d-sm-block">
+    <div>
+      <h1 v-if="props.currentUser" class="text-h4">
+        Welcome, {{ props.currentUser }}!
+      </h1>
+      <h1 v-else class="text-h4">Toolhunt Dashboard</h1>
+      <p class="text-body-1 d-none d-sm-block mt-1">
         Here on the Dashboard, you can view your latest contributions and check
         out global contributions and statistics about Toolhub and the Toolhunt
         project.
-      </p>
-    </div>
-    <div v-else>
-      <p class="d-none d-sm-block">
-        Here on the Dashboard, you can check out global contributions and
-        statistics about Toolhub and the Toolhunt project. Login to see your
-        personal data.
       </p>
     </div>
   </v-container>
@@ -128,7 +124,7 @@ watchEffect(async () => {
                   density="compact"
                   align="center"
                   type="error"
-                  text="We are having a problem fetching this data for you right now, please refresh the page"
+                  text="We are having trouble fetching the data.  Please refresh the page."
                 ></v-alert>
               </v-overlay>
               <v-table>
@@ -175,7 +171,7 @@ watchEffect(async () => {
                   density="compact"
                   align="center"
                   type="error"
-                  text="We are having a problem fetching this data for you right now, please refresh the page"
+                  text="We are having trouble fetching the data.  Please refresh the page."
                 ></v-alert>
               </v-overlay>
               <v-table>
