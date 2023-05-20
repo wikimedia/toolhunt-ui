@@ -1,23 +1,39 @@
 <script setup>
 import { ref } from "vue";
-const requestedTool = ref(null);
 defineEmits(["tool-requested"]);
 defineProps({
-  "tool-titles": Array,
+  toolTitles: Array,
 });
+const loading = ref(false);
+const search = ref(null);
+const requestedTool = ref(null);
+
+// function querySelections(v) {
+//   this.loading = true;
+//   setTimeout(() => {
+//     this.items = this.toolTitles.filter((title) => {
+//       return (title || "").toLowerCase().indexOf((v || "").toLowerCase()) > -1;
+//     });
+//     this.loading = false;
+//   }, 500);
+// }
 </script>
 <template>
   <div>
-    <v-text-field
+    <v-autocomplete
       label="Find a tool"
       variant="outlined"
-      append-inner-icon="mdi-magnify"
       clearable
+      hide-no-data
+      v-model="requestedTool"
+      v-model:search="search"
+      :loading="loading"
+      :items="toolTitles"
+      append-inner-icon="mdi-magnify"
       @keyup.enter.prevent="$emit('tool-requested', requestedTool)"
       @click:append-inner="$emit('tool-requested', requestedTool)"
-      v-model="requestedTool"
     >
-    </v-text-field>
+    </v-autocomplete>
   </div>
 </template>
 <style scoped>

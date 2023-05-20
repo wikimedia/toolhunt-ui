@@ -89,7 +89,7 @@ async function getTasksForTool(requestedTool) {
     </p>
     <v-row class="d-flex justify-center mt-2">
       <SearchBar
-        :tool-titles="toolList?.allTitles"
+        :toolTitles="toolList?.allTitles"
         @tool-requested="getTasksForTool"
       ></SearchBar>
     </v-row>
